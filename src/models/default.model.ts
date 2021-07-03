@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, DeleteDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class DefaultModel {
@@ -6,7 +6,7 @@ export class DefaultModel {
   id: string;
   @Column('date')
   createdAt: Date;
-  @Column('date')
+  @DeleteDateColumn()
   deletedAt: Date;
   @Column('date')
   updatedAt: Date;

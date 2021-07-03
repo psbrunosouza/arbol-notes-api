@@ -15,6 +15,7 @@ const userController = new UserController();
 /** allow to access http routes */
 app.get('/list_users', userController.index);
 app.post('/create_users', userController.store);
+app.delete('/delete_users/:id', userController.delete);
 
 /** server listen on port 3333 */
 app.listen(3333, () => console.log('[API] Server started'));

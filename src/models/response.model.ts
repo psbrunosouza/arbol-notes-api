@@ -1,4 +1,4 @@
-export interface ResponseModel {
+export class ResponseModel {
   response: {
     data?: Object;
     errors?: string[];

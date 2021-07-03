@@ -58,7 +58,6 @@ export class UserController {
     const { id } = request.params;
     const body = request.body;
     const userRepository: UserRepository = getCustomRepository(UserRepository);
-    const errors: string[] = [];
 
     const hasUser = await userRepository.findOne({where: {id: id, email: body.email}});
 
@@ -88,9 +87,7 @@ export class UserController {
   async delete(request: Request, response: Response) {
     const { id } = request.params;
     const userRepository: UserRepository = getCustomRepository(UserRepository);
-
-    console.log(id);
-
+    
     const hasUser = await userRepository.findOneOrFail({ id: id });
 
     if (!hasUser) {
@@ -105,7 +102,6 @@ export class UserController {
     }
 
     hasUser.deletedAt = new Date();
-    console.log(hasUser);
     await userRepository.softDelete(id);
 
     return response.status(200).json({
@@ -118,5 +114,14 @@ export class UserController {
     });
   }
 
-  async restore(request: Request, response: Response) {}
+  async restore(request: Request, response: Response) {
+    const {id} = request.params;
+    const userRepository: UserRepository = getCustomRepository(UserRepository);
+    
+    const hasUser = await userRepository.findOneOrFail(id);
+    hasUser.deletedAt = null;
+    
+    await userRepository.save(hasUser);
+    
+  }
 }

@@ -5,9 +5,9 @@ export class DefaultModel {
   @PrimaryGeneratedColumn('uuid')
   id: string;
   @Column('date')
-  createdAt: Date;
+  createdAt: Date | null;
   @DeleteDateColumn()
-  deletedAt: Date;
+  deletedAt: Date | null;
   @UpdateDateColumn()
-  updatedAt: Date;
+  updatedAt: Date | null;
 }

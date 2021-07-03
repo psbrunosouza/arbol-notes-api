@@ -16,6 +16,7 @@ const userController = new UserController();
 app.get('/list_users', userController.index);
 app.post('/create_users', userController.store);
 app.delete('/delete_users/:id', userController.delete);
+app.put('/edit_users/:id', userController.edit);
 
 /** server listen on port 3333 */
 app.listen(3333, () => console.log('[API] Server started'));

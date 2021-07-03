@@ -6,7 +6,9 @@ import { UserModel } from "../models/user.model";
 export class UserController {
   async index(request: Request, response: Response) {
     const userRepository: UserRepository = getCustomRepository(UserRepository);
-    const [users, count] = await userRepository.findAndCount({ withDeleted: false });
+    const [users, count] = await userRepository.findAndCount({
+      withDeleted: false,
+    });
 
     return response.status(200).json({
       response: {
@@ -52,7 +54,36 @@ export class UserController {
     });
   }
 
-  async edit(request: Request, response: Response) {}
+  async edit(request: Request, response: Response) {
+    const { id } = request.params;
+    const body = request.body;
+    const userRepository: UserRepository = getCustomRepository(UserRepository);
+    const errors: string[] = [];
+
+    const hasUser = await userRepository.findOne({where: {id: id, email: body.email}});
+
+    if (!hasUser) {
+      return response.status(422).json({
+        response: {
+          data: {},
+          errors: ["is not possible update entity"],
+          status: 422,
+          success: false,
+        },
+      });
+    }
+
+    await userRepository.save({ ...hasUser, ...body, id });
+
+    return response.status(200).json({
+      response: {
+        data: {},
+        errors: [],
+        status: 200,
+        success: true,
+      },
+    });
+  }
 
   async delete(request: Request, response: Response) {
     const { id } = request.params;
@@ -60,7 +91,7 @@ export class UserController {
 
     console.log(id);
 
-    const hasUser = await userRepository.findOneOrFail({id: id});
+    const hasUser = await userRepository.findOneOrFail({ id: id });
 
     if (!hasUser) {
       return response.status(422).json({
@@ -73,7 +104,7 @@ export class UserController {
       });
     }
 
-    hasUser.deletedAt = new Date;
+    hasUser.deletedAt = new Date();
     console.log(hasUser);
     await userRepository.softDelete(id);
 
@@ -86,4 +117,6 @@ export class UserController {
       },
     });
   }
+
+  async restore(request: Request, response: Response) {}
 }

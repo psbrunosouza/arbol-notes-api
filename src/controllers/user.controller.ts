@@ -2,6 +2,7 @@ import { UserRepository } from "../repositories/user.repository";
 import { Request, Response } from "express";
 import { getCustomRepository } from "typeorm";
 import { UserModel } from "../models/user.model";
+import {hash} from 'bcrypt';
 
 export class UserController {
   async index(request: Request, response: Response) {
@@ -24,6 +25,7 @@ export class UserController {
     const { name, email, password } = request.body;
     const userRepository: UserRepository = getCustomRepository(UserRepository);
     const hasUser = await userRepository.findOne({ email: email });
+    const saltRounds: number = 10;
 
     if (hasUser) {
       return response.status(422).json({
@@ -36,10 +38,13 @@ export class UserController {
       });
     }
 
+    
+    const hashedPassword = await hash(password, saltRounds)
+
     const user = {
       name,
       email,
-      password,
+      password: hashedPassword,
     } as UserModel;
 
     await userRepository.save(user);

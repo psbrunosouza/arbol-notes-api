@@ -123,9 +123,28 @@ export class UserController {
     const { id } = request.params;
     const userRepository: UserRepository = getCustomRepository(UserRepository);
 
-    const hasUser = await userRepository.findOneOrFail(id);
-    hasUser.deletedAt = null;
+    const hasUser = await userRepository.findOne(id);
 
-    await userRepository.save(hasUser);
+    if(hasUser){
+      return response.status(422).json({
+        response: {
+          data: {},
+          errors: ["is not possible restore user"],
+          status: 422,
+          success: false,
+        },
+      });
+    }
+
+    await userRepository.restore(id);
+
+    return response.status(200).json({
+      response: {
+        data: {},
+        errors: [],
+        status: 200,
+        success: true,
+      },
+    });
   }
 }

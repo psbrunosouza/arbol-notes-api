@@ -60,11 +60,11 @@ export class UserController {
 
   async edit(request: Request, response: Response) {
     const { id } = request.params;
-    const body = request.body;
+    const { name } = request.body;
     const userRepository: UserRepository = getCustomRepository(UserRepository);
 
     const hasUser = await userRepository.findOne({
-      where: { id: id, email: body.email },
+      where: { id: id },
     });
 
     if (!hasUser) {
@@ -78,7 +78,11 @@ export class UserController {
       });
     }
 
-    await userRepository.save({ ...hasUser, ...body, id });
+    await userRepository.save({
+      ...hasUser,
+      id,
+      name,
+    });
 
     return response.status(200).json({
       response: {
@@ -125,7 +129,7 @@ export class UserController {
 
     const hasUser = await userRepository.findOne(id);
 
-    if(hasUser){
+    if (hasUser) {
       return response.status(422).json({
         response: {
           data: {},

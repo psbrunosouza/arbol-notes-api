@@ -2,7 +2,7 @@ import { UserRepository } from "../repositories/user.repository";
 import { Request, Response } from "express";
 import { getCustomRepository } from "typeorm";
 import { UserModel } from "../models/user.model";
-import {hash} from 'bcrypt';
+import { hash } from "bcrypt";
 
 export class UserController {
   async index(request: Request, response: Response) {
@@ -38,8 +38,7 @@ export class UserController {
       });
     }
 
-    
-    const hashedPassword = await hash(password, saltRounds)
+    const hashedPassword = await hash(password, saltRounds);
 
     const user = {
       name,
@@ -64,7 +63,9 @@ export class UserController {
     const body = request.body;
     const userRepository: UserRepository = getCustomRepository(UserRepository);
 
-    const hasUser = await userRepository.findOne({where: {id: id, email: body.email}});
+    const hasUser = await userRepository.findOne({
+      where: { id: id, email: body.email },
+    });
 
     if (!hasUser) {
       return response.status(422).json({
@@ -92,7 +93,7 @@ export class UserController {
   async delete(request: Request, response: Response) {
     const { id } = request.params;
     const userRepository: UserRepository = getCustomRepository(UserRepository);
-    
+
     const hasUser = await userRepository.findOneOrFail({ id: id });
 
     if (!hasUser) {
@@ -106,7 +107,6 @@ export class UserController {
       });
     }
 
-    hasUser.deletedAt = new Date();
     await userRepository.softDelete(id);
 
     return response.status(200).json({
@@ -120,13 +120,12 @@ export class UserController {
   }
 
   async restore(request: Request, response: Response) {
-    const {id} = request.params;
+    const { id } = request.params;
     const userRepository: UserRepository = getCustomRepository(UserRepository);
-    
+
     const hasUser = await userRepository.findOneOrFail(id);
     hasUser.deletedAt = null;
-    
+
     await userRepository.save(hasUser);
-    
   }
 }

@@ -1,5 +1,6 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 import { DefaultModel } from './default.model';
+import { WorkspaceModel } from './workspace.model';
 
 @Entity('users')
 export class UserModel extends DefaultModel{
@@ -9,4 +10,6 @@ export class UserModel extends DefaultModel{
   email: string;
   @Column('varchar')
   password: string | undefined;
+  @OneToMany(() => UserModel, user => user.workspaces)
+  workspaces: WorkspaceModel[]
 }

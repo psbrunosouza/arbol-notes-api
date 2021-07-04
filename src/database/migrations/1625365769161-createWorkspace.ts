@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm";
 
 export class createWorkspace1625365769161 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -13,6 +13,12 @@ export class createWorkspace1625365769161 implements MigrationInterface {
             isNullable: false,
             generationStrategy: "uuid",
             default: "uuid_generate_v4()",
+          },
+
+          {
+            name: "userId",
+            type: "uuid",
+            isNullable: false,
           },
 
           {
@@ -51,9 +57,20 @@ export class createWorkspace1625365769161 implements MigrationInterface {
         ],
       })
     );
+
+    await queryRunner.createForeignKey("workspaces", 
+    new TableForeignKey({
+      name: "fk_userid",
+      columnNames: ["userId"],
+      referencedColumnNames: ["id"],
+      referencedTableName: "users",
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE"
+    }))
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.dropForeignKey("workspaces", "fk_userid")
     await queryRunner.dropTable('workspaces');
   }
 }

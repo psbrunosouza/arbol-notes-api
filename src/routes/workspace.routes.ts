@@ -5,4 +5,9 @@ import {WorkspaceController} from '../controllers/workspace.controller';
 const apiRouter = express.Router();
 const workspaceController = new WorkspaceController();
 
-export default apiRouter.get('/list', workspaceController.index)
+apiRouter.get('/list', workspaceController.index);
+apiRouter.post('/create', workspaceController.store);
+apiRouter.put('/edit/:id', workspaceController.edit);
+
+
+export default apiRouter;

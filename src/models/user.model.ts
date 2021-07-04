@@ -8,5 +8,5 @@ export class UserModel extends DefaultModel{
   @Column('varchar')
   email: string;
   @Column('varchar')
-  password: string;
+  password: string | undefined;
 }

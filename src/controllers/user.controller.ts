@@ -11,6 +11,10 @@ export class UserController {
       withDeleted: false,
     });
 
+    users.forEach((user, index) => {
+      users[index].password = undefined;
+    })
+
     return response.status(200).json({
       response: {
         data: { users, count },

@@ -4,8 +4,7 @@ import { getCustomRepository } from 'typeorm';
 import {UserRepository} from '../repositories/user.repository';
 import {compare} from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import authConfig from '../config';
-
+const authConfig = require('../config/auth');
 export class AuthService {
   async authenticate(request: Request, response: Response){
     const {email, password} = request.body;
@@ -36,7 +35,7 @@ export class AuthService {
     }
 
     const token = jwt.sign({id: user.id}, 
-      "d41d8cd98f00b204e9800998ecf8427e", {
+      authConfig.secret, {
       expiresIn: 86400
     })
 

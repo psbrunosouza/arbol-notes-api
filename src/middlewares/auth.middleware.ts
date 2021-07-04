@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from 'jsonwebtoken';
+const authConfig = require('../config/auth');
 
 interface TokenPayload{
   id: string,
@@ -29,7 +30,7 @@ export const authMiddleware = (
   const token = authorization.replace('Bearer', '').trim();
 
   try{
-    const data = jwt.verify(token, 'd41d8cd98f00b204e9800998ecf8427e');
+    const data = jwt.verify(token, authConfig.secret);
     const {id} = data as TokenPayload;
     request.userId = id;
     return next();

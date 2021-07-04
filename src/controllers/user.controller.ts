@@ -52,11 +52,13 @@ export class UserController {
 
     await userRepository.save(user);
 
-    return response.status(200).json({
+    user.password = undefined;
+
+    return response.status(201).json({
       response: {
-        data: {},
+        data: {user},
         errors: [],
-        status: 200,
+        status: 201,
         success: true,
       },
     });
@@ -67,11 +69,11 @@ export class UserController {
     const { name } = request.body;
     const userRepository: UserRepository = getCustomRepository(UserRepository);
 
-    const hasUser = await userRepository.findOne({
+    const user = await userRepository.findOne({
       where: { id: id },
     });
 
-    if (!hasUser) {
+    if (!user) {
       return response.status(422).json({
         response: {
           data: {},
@@ -83,14 +85,16 @@ export class UserController {
     }
 
     await userRepository.save({
-      ...hasUser,
+      ...user,
       id,
       name,
     });
 
+    user.password = undefined;
+
     return response.status(200).json({
       response: {
-        data: {},
+        data: {user},
         errors: [],
         status: 200,
         success: true,

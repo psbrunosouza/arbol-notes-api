@@ -1,34 +1,42 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm";
 
-export class createUser1625271768923 implements MigrationInterface {
+export class createWorkspace1625365769161 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: "users",
+        name: "workspaces",
         columns: [
           {
             name: "id",
             type: "uuid",
-            generationStrategy: "uuid",
-            default: "uuid_generate_v4()",
             isPrimary: true,
             isNullable: false,
+            generationStrategy: "uuid",
+            default: "uuid_generate_v4()",
           },
+
+          {
+            name: "userId",
+            type: "uuid",
+            isNullable: false,
+          },
+
           {
             name: "name",
             type: "varchar",
             isNullable: false,
           },
+
           {
-            name: "email",
+            name: "image",
             type: "varchar",
-            isUnique: true,
-            isNullable: false,
+            isNullable: true,
           },
+
           {
-            name: "password",
+            name: "description",
             type: "varchar",
-            isNullable: false,
+            isNullable: true,
           },
           {
             name: "createdAt",
@@ -49,9 +57,20 @@ export class createUser1625271768923 implements MigrationInterface {
         ],
       })
     );
+
+    await queryRunner.createForeignKey("workspaces", 
+    new TableForeignKey({
+      name: "fk_userid",
+      columnNames: ["userId"],
+      referencedColumnNames: ["id"],
+      referencedTableName: "users",
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE"
+    }))
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("users");
+    await queryRunner.dropForeignKey("workspaces", "fk_userid")
+    await queryRunner.dropTable('workspaces');
   }
 }

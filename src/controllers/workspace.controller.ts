@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
 import { getCustomRepository } from "typeorm";
 import { WorkspaceRepository } from "../repositories/workspace.repository";
-import { UserRepository } from '../repositories/user.repository';
+import { UserRepository } from "../repositories/user.repository";
 export class WorkspaceController {
   constructor() {}
 
   async index(request: Request, response: Response) {
-    const workspaceRepository: WorkspaceRepository = getCustomRepository(WorkspaceRepository);
+    const workspaceRepository: WorkspaceRepository =
+      getCustomRepository(WorkspaceRepository);
     const [workspaces, count] = await workspaceRepository.findAndCount({
       withDeleted: false,
     });
@@ -23,12 +24,15 @@ export class WorkspaceController {
 
   async store(request: Request, response: Response) {
     const workspace = request.body;
-    const workspaceRepository: WorkspaceRepository = getCustomRepository(WorkspaceRepository);
+    const workspaceRepository: WorkspaceRepository =
+      getCustomRepository(WorkspaceRepository);
     const userRepository: UserRepository = getCustomRepository(UserRepository);
 
-    const user = await userRepository.findOne({where: {id: workspace.userId}})
+    const user = await userRepository.findOne({
+      where: { id: workspace.userId },
+    });
 
-    if(!user){
+    if (!user) {
       return response.status(404).json({
         response: {
           data: {},
@@ -39,7 +43,7 @@ export class WorkspaceController {
       });
     }
 
-    if(!workspace.name){
+    if (!workspace.name) {
       return response.status(422).json({
         response: {
           data: {},
@@ -54,7 +58,7 @@ export class WorkspaceController {
 
     return response.status(201).json({
       response: {
-        data: {workspace},
+        data: { workspace },
         errors: [],
         status: 201,
         success: true,
@@ -63,13 +67,14 @@ export class WorkspaceController {
   }
 
   async edit(request: Request, response: Response) {
-    const {id} = request.params;
+    const { id } = request.params;
     const workspace = request.body;
-    const workspaceRepository: WorkspaceRepository = getCustomRepository(WorkspaceRepository);
-    
-    const hasWorkspace = await workspaceRepository.findOne(id)
+    const workspaceRepository: WorkspaceRepository =
+      getCustomRepository(WorkspaceRepository);
 
-    if(!hasWorkspace){
+    const hasWorkspace = await workspaceRepository.findOne(id);
+
+    if (!hasWorkspace) {
       return response.status(404).json({
         response: {
           data: {},
@@ -80,20 +85,96 @@ export class WorkspaceController {
       });
     }
 
-    await workspaceRepository.save({...hasWorkspace, ...workspace});
+    await workspaceRepository.save({ ...hasWorkspace, ...workspace });
 
     return response.status(200).json({
       response: {
-        data: {workspace: {...hasWorkspace, ...workspace}},
+        data: { workspace: { ...hasWorkspace, ...workspace } },
         errors: [],
         status: 200,
         success: true,
       },
     });
-
   }
 
-  async delete(request: Request, response: Response) {}
+  async delete(request: Request, response: Response) {
+    const { id } = request.params;
+    const workspaceRepository: WorkspaceRepository =
+      getCustomRepository(WorkspaceRepository);
 
-  async restore(request: Request, response: Response) {}
+    try {
+      const hasWorkspace = await workspaceRepository.findOne(id);
+      if (!hasWorkspace) {
+        return response.status(422).json({
+          response: {
+            data: {},
+            errors: ["is not possible delete workspace"],
+            status: 422,
+            success: false,
+          },
+        });
+      }
+
+      await workspaceRepository.softDelete(id);
+
+      return response.status(200).json({
+        response: {
+          data: {},
+          errors: [],
+          status: 200,
+          success: true,
+        },
+      });
+    } catch (err) {
+      return response.status(500).json({
+        response: {
+          data: {},
+          errors: ["intertal server error", err.message],
+          status: 500,
+          success: false,
+        },
+      });
+    }
+  }
+
+  async restore(request: Request, response: Response) {
+    const { id } = request.params;
+    const workspaceRepository: WorkspaceRepository =
+      getCustomRepository(WorkspaceRepository);
+
+    try {
+      const hasWorkspace = await workspaceRepository.findOne(id);
+
+      if (hasWorkspace) {
+        return response.status(422).json({
+          response: {
+            data: {},
+            errors: ["is not possible restore workspace"],
+            status: 422,
+            success: false,
+          },
+        });
+      }
+
+      await workspaceRepository.restore(id);
+
+      return response.status(200).json({
+        response: {
+          data: {},
+          errors: [],
+          status: 200,
+          success: true,
+        },
+      });
+    } catch (err) {
+      return response.status(500).json({
+        response: {
+          data: {},
+          errors: ["intertal server error", err.message],
+          status: 500,
+          success: false,
+        },
+      });
+    }
+  }
 }

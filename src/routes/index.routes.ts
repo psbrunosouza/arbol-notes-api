@@ -9,6 +9,6 @@ const authService = new AuthService();
 const apiRouter = express.Router();
 apiRouter.post('/auth', authService.authenticate)
 apiRouter.use('/users', userRoutes);
-apiRouter.use('/workspaces', authMiddleware, workspaceRoutes);
+apiRouter.use('/workspaces', workspaceRoutes);
 
 export default apiRouter;

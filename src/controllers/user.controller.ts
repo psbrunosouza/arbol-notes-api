@@ -11,6 +11,10 @@ export class UserController {
       withDeleted: false,
     });
 
+    users.forEach((user, index) => {
+      users[index].password = undefined;
+    })
+
     return response.status(200).json({
       response: {
         data: { users, count },
@@ -48,11 +52,13 @@ export class UserController {
 
     await userRepository.save(user);
 
-    return response.status(200).json({
+    user.password = undefined;
+
+    return response.status(201).json({
       response: {
-        data: {},
+        data: {user},
         errors: [],
-        status: 200,
+        status: 201,
         success: true,
       },
     });
@@ -60,14 +66,14 @@ export class UserController {
 
   async edit(request: Request, response: Response) {
     const { id } = request.params;
-    const body = request.body;
+    const { name } = request.body;
     const userRepository: UserRepository = getCustomRepository(UserRepository);
 
-    const hasUser = await userRepository.findOne({
-      where: { id: id, email: body.email },
+    const user = await userRepository.findOne({
+      where: { id: id },
     });
 
-    if (!hasUser) {
+    if (!user) {
       return response.status(422).json({
         response: {
           data: {},
@@ -78,11 +84,17 @@ export class UserController {
       });
     }
 
-    await userRepository.save({ ...hasUser, ...body, id });
+    await userRepository.save({
+      ...user,
+      id,
+      name,
+    });
+
+    user.password = undefined;
 
     return response.status(200).json({
       response: {
-        data: {},
+        data: {user},
         errors: [],
         status: 200,
         success: true,
@@ -123,9 +135,28 @@ export class UserController {
     const { id } = request.params;
     const userRepository: UserRepository = getCustomRepository(UserRepository);
 
-    const hasUser = await userRepository.findOneOrFail(id);
-    hasUser.deletedAt = null;
+    const hasUser = await userRepository.findOne(id);
 
-    await userRepository.save(hasUser);
+    if (hasUser) {
+      return response.status(422).json({
+        response: {
+          data: {},
+          errors: ["is not possible restore user"],
+          status: 422,
+          success: false,
+        },
+      });
+    }
+
+    await userRepository.restore(id);
+
+    return response.status(200).json({
+      response: {
+        data: {},
+        errors: [],
+        status: 200,
+        success: true,
+      },
+    });
   }
 }

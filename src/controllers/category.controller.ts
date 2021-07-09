@@ -1,24 +1,24 @@
 import { Request, Response } from "express";
 import { getCustomRepository } from "typeorm";
-import { WorkspaceRepository } from "../repositories/workspace.repository";
+import { CategoryRepository } from "../repositories/category.repository";
 import { UserRepository } from "../repositories/user.repository";
-export class WorkspaceController {
-  constructor() {}
+import { WorkspaceRepository } from "../repositories/workspace.repository";
 
+export class CategoryController {
   async index(request: Request, response: Response) {
-    const workspaceRepository: WorkspaceRepository =
-      getCustomRepository(WorkspaceRepository);
+    const categoryRepository: CategoryRepository =
+      getCustomRepository(CategoryRepository);
 
     try {
-      const [workspaces, count] = await workspaceRepository.findAndCount({
+      const [categories, count] = await categoryRepository.findAndCount({
         withDeleted: false,
       });
 
       return response.status(200).json({
         response: {
-          data: { workspaces, count },
+          data: { categories, count },
           errors: [],
-          status: 201,
+          status: 200,
           success: true,
         },
       });
@@ -35,28 +35,29 @@ export class WorkspaceController {
   }
 
   async store(request: Request, response: Response) {
-    const workspace = request.body;
+    const category = request.body;
+    const categoryRepository: CategoryRepository =
+      getCustomRepository(CategoryRepository);
     const workspaceRepository: WorkspaceRepository =
       getCustomRepository(WorkspaceRepository);
-    const userRepository: UserRepository = getCustomRepository(UserRepository);
 
-    try{
-      const user = await userRepository.findOne({
-        where: { id: workspace.userId },
+    try {
+      const workspace = await workspaceRepository.findOne({
+        where: { id: category.workspaceId },
       });
-  
-      if (!user) {
+
+      if (!workspace) {
         return response.status(404).json({
           response: {
             data: {},
-            errors: ["user does not exists"],
+            errors: ["workspace does not exists"],
             status: 404,
             success: false,
           },
         });
       }
-  
-      if (!workspace.name) {
+
+      if (!category.name) {
         return response.status(422).json({
           response: {
             data: {},
@@ -66,18 +67,18 @@ export class WorkspaceController {
           },
         });
       }
-  
-      await workspaceRepository.save(workspace);
-  
+
+      await categoryRepository.save(category);
+
       return response.status(201).json({
         response: {
-          data: { workspace },
+          data: { category },
           errors: [],
           status: 201,
           success: true,
         },
       });
-    }catch(err){
+    } catch (err) {
       return response.status(500).json({
         response: {
           data: {},
@@ -91,35 +92,36 @@ export class WorkspaceController {
 
   async edit(request: Request, response: Response) {
     const { id } = request.params;
-    const workspace = request.body;
-    const workspaceRepository: WorkspaceRepository =
-      getCustomRepository(WorkspaceRepository);
+    const category = request.body;
 
-    try{
-      const hasWorkspace = await workspaceRepository.findOne(id);
+    const categoryRepository: CategoryRepository =
+      getCustomRepository(CategoryRepository);
 
-      if (!hasWorkspace) {
+    try {
+      const hasCategory = await categoryRepository.findOne(id);
+
+      if (!hasCategory) {
         return response.status(404).json({
           response: {
             data: {},
-            errors: ["workspace was not found"],
+            errors: ["category does not exists"],
             status: 404,
             success: false,
           },
         });
       }
-  
-      await workspaceRepository.save({ ...hasWorkspace, ...workspace });
-  
+
+      await categoryRepository.save({ ...hasCategory, ...category });
+
       return response.status(200).json({
         response: {
-          data: { workspace: { ...hasWorkspace, ...workspace } },
+          data: { ...hasCategory, ...category },
           errors: [],
           status: 200,
           success: true,
         },
       });
-    }catch(err){
+    } catch (err) {
       return response.status(500).json({
         response: {
           data: {},
@@ -133,23 +135,23 @@ export class WorkspaceController {
 
   async delete(request: Request, response: Response) {
     const { id } = request.params;
-    const workspaceRepository: WorkspaceRepository =
-      getCustomRepository(WorkspaceRepository);
+    const categoryRepository: CategoryRepository =
+      getCustomRepository(CategoryRepository);
 
     try {
-      const hasWorkspace = await workspaceRepository.findOne(id);
-      if (!hasWorkspace) {
-        return response.status(422).json({
+      const hasCategory = await categoryRepository.findOne(id);
+      if (!hasCategory) {
+        return response.status(404).json({
           response: {
             data: {},
-            errors: ["is not possible delete workspace"],
-            status: 422,
+            errors: ["category does not exists"],
+            status: 404,
             success: false,
           },
         });
       }
 
-      await workspaceRepository.softDelete(id);
+      await categoryRepository.softDelete(id);
 
       return response.status(200).json({
         response: {
@@ -163,7 +165,7 @@ export class WorkspaceController {
       return response.status(500).json({
         response: {
           data: {},
-          errors: ["intertal server error", err.message],
+          errors: ["internal server error", err.message],
           status: 500,
           success: false,
         },
@@ -173,24 +175,23 @@ export class WorkspaceController {
 
   async restore(request: Request, response: Response) {
     const { id } = request.params;
-    const workspaceRepository: WorkspaceRepository =
-      getCustomRepository(WorkspaceRepository);
+    const categoryRepository: CategoryRepository =
+      getCustomRepository(CategoryRepository);
 
     try {
-      const hasWorkspace = await workspaceRepository.findOne(id);
-
-      if (hasWorkspace) {
+      const hasCategory = await categoryRepository.findOne(id);
+      if (hasCategory) {
         return response.status(422).json({
           response: {
             data: {},
-            errors: ["is not possible restore workspace"],
+            errors: ["the category cannot be restored because it already exists"],
             status: 422,
             success: false,
           },
         });
       }
 
-      await workspaceRepository.restore(id);
+      await categoryRepository.restore(id);
 
       return response.status(200).json({
         response: {
@@ -204,7 +205,7 @@ export class WorkspaceController {
       return response.status(500).json({
         response: {
           data: {},
-          errors: ["intertal server error", err.message],
+          errors: ["internal server error", err.message],
           status: 500,
           success: false,
         },

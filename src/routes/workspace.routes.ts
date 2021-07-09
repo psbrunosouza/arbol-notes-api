@@ -7,7 +7,7 @@ const workspaceController = new WorkspaceController();
 
 apiRouter.use(authMiddleware);
 apiRouter.get('/list', workspaceController.index);
-apiRouter.post('/store', workspaceController.store);
+apiRouter.post('/create', workspaceController.store);
 apiRouter.put('/edit/:id', workspaceController.edit);
 apiRouter.delete('/delete/:id', workspaceController.delete);
 apiRouter.post('/restore/:id', workspaceController.restore);

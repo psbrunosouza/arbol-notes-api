@@ -1,25 +1,22 @@
-import { UserRepository } from "../repositories/user.repository";
 import { Request, Response } from "express";
 import { getCustomRepository } from "typeorm";
-import { UserModel } from "../models/user.model";
-import { hash } from "bcrypt";
+import { CategoryRepository } from "../repositories/category.repository";
+import { UserRepository } from "../repositories/user.repository";
+import { WorkspaceRepository } from "../repositories/workspace.repository";
 
-export class UserController {
+export class CategoryController {
   async index(request: Request, response: Response) {
-    const userRepository: UserRepository = getCustomRepository(UserRepository);
+    const categoryRepository: CategoryRepository =
+      getCustomRepository(CategoryRepository);
 
     try {
-      const [users, count] = await userRepository.findAndCount({
+      const [categories, count] = await categoryRepository.findAndCount({
         withDeleted: false,
-      });
-
-      users.forEach((user, index) => {
-        users[index].password = undefined;
       });
 
       return response.status(200).json({
         response: {
-          data: { users, count },
+          data: { categories, count },
           errors: [],
           status: 200,
           success: true,
@@ -38,36 +35,44 @@ export class UserController {
   }
 
   async store(request: Request, response: Response) {
-    const { name, email, password } = request.body;
-    const userRepository: UserRepository = getCustomRepository(UserRepository);
-    const saltRounds: number = 10;
+    const category = request.body;
+    const categoryRepository: CategoryRepository =
+      getCustomRepository(CategoryRepository);
+    const workspaceRepository: WorkspaceRepository =
+      getCustomRepository(WorkspaceRepository);
 
     try {
-      const hasUser = await userRepository.findOne({ email: email });
-      if (hasUser) {
+      const workspace = await workspaceRepository.findOne({
+        where: { id: category.workspaceId },
+      });
+
+      if (!workspace) {
+        return response.status(404).json({
+          response: {
+            data: {},
+            errors: ["workspace does not exists"],
+            status: 404,
+            success: false,
+          },
+        });
+      }
+
+      if (!category.name) {
         return response.status(422).json({
           response: {
             data: {},
-            errors: ["user already exists"],
+            errors: ["entity 'name' cannot be empty"],
             status: 422,
             success: false,
           },
         });
       }
 
-      const user = {
-        name,
-        email,
-        password: await hash(password, saltRounds),
-      } as UserModel;
-
-      await userRepository.save(user);
-
-      user.password = undefined;
+      await categoryRepository.save(category);
 
       return response.status(201).json({
         response: {
-          data: { user },
+          data: { category },
           errors: [],
           status: 201,
           success: true,
@@ -87,36 +92,30 @@ export class UserController {
 
   async edit(request: Request, response: Response) {
     const { id } = request.params;
-    const { name } = request.body;
-    const userRepository: UserRepository = getCustomRepository(UserRepository);
+    const category = request.body;
+
+    const categoryRepository: CategoryRepository =
+      getCustomRepository(CategoryRepository);
 
     try {
-      const user = await userRepository.findOne({
-        where: { id: id },
-      });
+      const hasCategory = await categoryRepository.findOne(id);
 
-      if (!user) {
-        return response.status(422).json({
+      if (!hasCategory) {
+        return response.status(404).json({
           response: {
             data: {},
-            errors: ["is not possible update entity"],
-            status: 422,
+            errors: ["category does not exists"],
+            status: 404,
             success: false,
           },
         });
       }
 
-      await userRepository.save({
-        ...user,
-        id,
-        name,
-      });
-
-      user.password = undefined;
+      await categoryRepository.save({ ...hasCategory, ...category });
 
       return response.status(200).json({
         response: {
-          data: { user },
+          data: { ...hasCategory, ...category },
           errors: [],
           status: 200,
           success: true,
@@ -136,23 +135,23 @@ export class UserController {
 
   async delete(request: Request, response: Response) {
     const { id } = request.params;
-    const userRepository: UserRepository = getCustomRepository(UserRepository);
+    const categoryRepository: CategoryRepository =
+      getCustomRepository(CategoryRepository);
 
     try {
-      const hasUser = await userRepository.findOneOrFail({ id: id });
-
-      if (!hasUser) {
-        return response.status(422).json({
+      const hasCategory = await categoryRepository.findOne(id);
+      if (!hasCategory) {
+        return response.status(404).json({
           response: {
             data: {},
-            errors: ["is not possible delete user"],
-            status: 422,
+            errors: ["category does not exists"],
+            status: 404,
             success: false,
           },
         });
       }
 
-      await userRepository.softDelete(id);
+      await categoryRepository.softDelete(id);
 
       return response.status(200).json({
         response: {
@@ -176,23 +175,23 @@ export class UserController {
 
   async restore(request: Request, response: Response) {
     const { id } = request.params;
-    const userRepository: UserRepository = getCustomRepository(UserRepository);
+    const categoryRepository: CategoryRepository =
+      getCustomRepository(CategoryRepository);
 
     try {
-      const hasUser = await userRepository.findOne(id);
-
-      if (hasUser) {
+      const hasCategory = await categoryRepository.findOne(id);
+      if (hasCategory) {
         return response.status(422).json({
           response: {
             data: {},
-            errors: ["is not possible restore user"],
+            errors: ["the category cannot be restored because it already exists"],
             status: 422,
             success: false,
           },
         });
       }
 
-      await userRepository.restore(id);
+      await categoryRepository.restore(id);
 
       return response.status(200).json({
         response: {

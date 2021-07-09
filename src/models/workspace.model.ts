@@ -1,4 +1,5 @@
-import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
+import { CategoryModel } from "./category.model";
 import { DefaultModel } from "./default.model";
 import {UserModel} from './user.model';
 
@@ -15,4 +16,6 @@ export class WorkspaceModel extends DefaultModel{
   @ManyToOne(() => UserModel)
   @JoinColumn({name: 'userId'})
   user: UserModel
+  @OneToMany(() => WorkspaceModel, workspace => workspace.categories)
+  categories: CategoryModel[]
 } 

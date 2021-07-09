@@ -184,7 +184,7 @@ export class CategoryController {
         return response.status(422).json({
           response: {
             data: {},
-            errors: ["category cannot be restored because it already exists"],
+            errors: ["the category cannot be restored because it already exists"],
             status: 422,
             success: false,
           },

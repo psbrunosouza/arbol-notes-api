@@ -18,7 +18,7 @@ export class CategoryController {
         response: {
           data: { categories, count },
           errors: [],
-          status: 201,
+          status: 200,
           success: true,
         },
       });
@@ -90,9 +90,126 @@ export class CategoryController {
     }
   }
 
-  async edit(request: Request, response: Response) {}
+  async edit(request: Request, response: Response) {
+    const { id } = request.params;
+    const category = request.body;
 
-  async delete(request: Request, response: Response) {}
+    const categoryRepository: CategoryRepository =
+      getCustomRepository(CategoryRepository);
 
-  async restore(request: Request, response: Response) {}
+    try {
+      const hasCategory = await categoryRepository.findOne(id);
+
+      if (!hasCategory) {
+        return response.status(404).json({
+          response: {
+            data: {},
+            errors: ["category does not exists"],
+            status: 404,
+            success: false,
+          },
+        });
+      }
+
+      await categoryRepository.save({ ...hasCategory, ...category });
+
+      return response.status(200).json({
+        response: {
+          data: { ...hasCategory, ...category },
+          errors: [],
+          status: 200,
+          success: true,
+        },
+      });
+    } catch (err) {
+      return response.status(500).json({
+        response: {
+          data: {},
+          errors: ["internal server error", err.message],
+          status: 500,
+          success: false,
+        },
+      });
+    }
+  }
+
+  async delete(request: Request, response: Response) {
+    const { id } = request.params;
+    const categoryRepository: CategoryRepository =
+      getCustomRepository(CategoryRepository);
+
+    try {
+      const hasCategory = await categoryRepository.findOne(id);
+      if (!hasCategory) {
+        return response.status(404).json({
+          response: {
+            data: {},
+            errors: ["category does not exists"],
+            status: 404,
+            success: false,
+          },
+        });
+      }
+
+      await categoryRepository.softDelete(id);
+
+      return response.status(200).json({
+        response: {
+          data: {},
+          errors: [],
+          status: 200,
+          success: true,
+        },
+      });
+    } catch (err) {
+      return response.status(500).json({
+        response: {
+          data: {},
+          errors: ["internal server error", err.message],
+          status: 500,
+          success: false,
+        },
+      });
+    }
+  }
+
+  async restore(request: Request, response: Response) {
+    const { id } = request.params;
+    const categoryRepository: CategoryRepository =
+      getCustomRepository(CategoryRepository);
+
+    try {
+      const hasCategory = await categoryRepository.findOne(id);
+      if (hasCategory) {
+        return response.status(422).json({
+          response: {
+            data: {},
+            errors: ["category cannot be restored because it already exists"],
+            status: 422,
+            success: false,
+          },
+        });
+      }
+
+      await categoryRepository.restore(id);
+
+      return response.status(200).json({
+        response: {
+          data: {},
+          errors: [],
+          status: 200,
+          success: true,
+        },
+      });
+    } catch (err) {
+      return response.status(500).json({
+        response: {
+          data: {},
+          errors: ["internal server error", err.message],
+          status: 500,
+          success: false,
+        },
+      });
+    }
+  }
 }

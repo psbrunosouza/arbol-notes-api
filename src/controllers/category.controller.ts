@@ -141,11 +141,11 @@ export class CategoryController {
     try {
       const hasCategory = await categoryRepository.findOne(id);
       if (!hasCategory) {
-        return response.status(404).json({
+        return response.status(422).json({
           response: {
             data: {},
-            errors: ["category does not exists"],
-            status: 404,
+            errors: ["is not possible delete category"],
+            status: 422,
             success: false,
           },
         });

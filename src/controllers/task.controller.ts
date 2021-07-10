@@ -75,10 +75,126 @@ export class TaskController {
   }
 
   async edit(request: Request, response: Response) {
-    
+    const { id } = request.params;
+    const task = request.body;
+    const taskRepository: TaskRepository = getCustomRepository(TaskRepository);
+
+    try {
+      const hasTask = await taskRepository.findOne(id);
+
+      if (!hasTask) {
+        return response.status(404).json({
+          response: {
+            data: {},
+            errors: ["task does not exists"],
+            status: 404,
+            success: false,
+          },
+        });
+      }
+
+      await taskRepository.save({ ...hasTask, ...task });
+
+      return response.status(200).json({
+        response: {
+          data: { task },
+          errors: [],
+          status: 200,
+          success: true,
+        },
+      });
+    } catch (err) {
+      return response.status(500).json({
+        response: {
+          data: {},
+          errors: ["internal server error", err.message],
+          status: 500,
+          success: false,
+        },
+      });
+    }
   }
 
-  async delete(request: Request, response: Response) {}
+  async delete(request: Request, response: Response) {
+    const { id } = request.params;
+    const taskRepository: TaskRepository = getCustomRepository(TaskRepository);
 
-  async restore(request: Request, response: Response) {}
+    try {
+
+      const hasTask = await taskRepository.findOne(id);
+      if(!hasTask){
+        return response.status(422).json({
+          response: {
+            data: {},
+            errors: ["is not possible delete task"],
+            status: 422,
+            success: false,
+          },
+        });
+      }
+
+      await taskRepository.softDelete(id);
+
+      return response.status(200).json({
+        response: {
+          data: {},
+          errors: [],
+          status: 200,
+          success: true,
+        },
+      });
+
+    } catch (err) {
+      return response.status(500).json({
+        response: {
+          data: {},
+          errors: ["internal server error", err.message],
+          status: 500,
+          success: false,
+        },
+      });
+    }
+  }
+
+  async restore(request: Request, response: Response) {
+    const {id} = request.params;
+    const taskRepository: TaskRepository = getCustomRepository(TaskRepository);
+
+
+    try{
+
+      const hasTask = await taskRepository.findOne(id);
+
+      if(hasTask){
+        return response.status(422).json({
+          response: {
+            data: {},
+            errors: ["is not possible restore task"],
+            status: 422,
+            success: false,
+          },
+        });
+      }
+
+      await taskRepository.restore(id);
+
+      return response.status(200).json({
+        response: {
+          data: {},
+          errors: [],
+          status: 200,
+          success: true,
+        },
+      });
+    }catch(err){
+      return response.status(500).json({
+        response: {
+          data: {},
+          errors: ["internal server error", err.message],
+          status: 500,
+          success: false,
+        },
+      });
+    }
+  }
 }

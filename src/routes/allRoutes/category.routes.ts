@@ -1,6 +1,6 @@
 import express from "express";
-import { CategoryController } from "../controllers/category.controller";
-import {authMiddleware} from '../middlewares/auth.middleware';
+import { CategoryController } from "../../controllers/category.controller";
+import {authMiddleware} from '../../middlewares/auth.middleware';
 
 const apiRouter = express.Router();
 const categoryController = new CategoryController();

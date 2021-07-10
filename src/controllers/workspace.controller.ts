@@ -18,7 +18,7 @@ export class WorkspaceController {
         response: {
           data: { workspaces, count },
           errors: [],
-          status: 201,
+          status: 200,
           success: true,
         },
       });

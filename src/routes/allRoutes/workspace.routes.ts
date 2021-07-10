@@ -1,6 +1,6 @@
 import express from "express";
-import {WorkspaceController} from '../controllers/workspace.controller';
-import {authMiddleware} from '../middlewares/auth.middleware';
+import { WorkspaceController } from "../../controllers/workspace.controller";
+import { authMiddleware } from "../../middlewares/auth.middleware";
 
 const apiRouter = express.Router();
 const workspaceController = new WorkspaceController();

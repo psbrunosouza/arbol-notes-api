@@ -1,6 +1,5 @@
-# Loopnotes | ArbolNotes
+## Arbol app
 
-## Sobre 
+O Arbol é uma ferramenta de acompanhamento de tarefas onde o usuário terá a experiência de realizar suas atividades sem que precise ele mesmo rememorá-las, criar agendas manualmente etc. O Arbol, além das ferra-mentas e funcionalidades já idealizadas por ferramentas de TODO-LIST anteriores, como: check-boxes, datas, listas, tabelas, imagens, anexos e mais. Contará também com a funcionalidade de repetição espaçada, já ex-plorada por aplicativos como ANKI que entrega ao usuário as tarefas que ele precisa revisar/estudar com o passar do tempo.
 
-**Loop Notes** será um app de tarefas diferente do tradicional to-do list que conhecemos, pois ele 'bebe da fonte' da repetição espaçada já explorada por outros aplicativos como *anki*. 
-Dessa forma, além de entregar ao usuário o acompanhamento de tarefas tradicional já conhecido: criar uma nova tarefa, determinar datas, descrições, também terá o auxílio da repetição espaçada, ou seja toda tarefa criada entra em um ciclo de entregas que será construído a medida que o usuário utiliza a aplicação.
+O principal objetivo da aplicação é auxiliar estudantes que estão se desen-volvendo em alguma área de interesse a conseguir acompanhar e fixar me-lhor os conteúdos que lhes são apresentados, seja de um curso, artigos, livros, documentação etc.

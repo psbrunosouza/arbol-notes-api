@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { getCustomRepository } from 'typeorm';
 import { UserRepository } from '../../shared/typeorm/repositories/user.repository';
 import { compare } from 'bcrypt';
+import AppError from '@shared/errors/AppError';
 import jwt from 'jsonwebtoken';
 const authConfig = require('../../config/auth.json');
 export class AuthService {
@@ -12,25 +13,11 @@ export class AuthService {
     const user = await userRepository.findOne({ where: { email: email } });
 
     if (!user) {
-      return response.status(422).json({
-        response: {
-          data: {},
-          errors: ['user is not registered'],
-          status: 422,
-          success: false,
-        },
-      });
+      throw new AppError('User is not registered', 404);
     }
 
     if (!(await compare(password, user.password as string))) {
-      return response.status(422).json({
-        response: {
-          data: {},
-          errors: ['email or password is incorrect'],
-          status: 422,
-          success: false,
-        },
-      });
+      throw new AppError('Invalid credentials', 401);
     }
 
     const token = jwt.sign({ id: user.id }, authConfig.secret, {
@@ -49,3 +36,5 @@ export class AuthService {
     });
   }
 }
+
+export default new AuthService();

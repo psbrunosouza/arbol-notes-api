@@ -1,6 +1,7 @@
-import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
-const authConfig = require("../../config/auth.json");
+import AppError from '@shared/errors/AppError';
+import { Request, Response, NextFunction } from 'express';
+import jwt from 'jsonwebtoken';
+const authConfig = require('../../config/auth.json');
 
 interface TokenPayload {
   id: string;
@@ -11,22 +12,15 @@ interface TokenPayload {
 export const ensureAuthenticate = (
   request: Request,
   response: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const { authorization } = request.headers;
 
   if (!authorization) {
-    return response.status(401).json({
-      response: {
-        data: {},
-        errors: ["access denied"],
-        status: 401,
-        success: false,
-      },
-    });
+    throw new AppError('Unauthorized acess', 401);
   }
 
-  const token = authorization.replace("Bearer", "").trim();
+  const token = authorization.replace('Bearer', '').trim();
 
   try {
     const data = jwt.verify(token, authConfig.secret);
@@ -34,13 +28,6 @@ export const ensureAuthenticate = (
     request.userId = id;
     return next();
   } catch {
-    return response.status(401).json({
-      response: {
-        data: {},
-        errors: ["access denied"],
-        status: 401,
-        success: false,
-      },
-    });
+    throw new AppError('Unauthorized acess', 401);
   }
 };

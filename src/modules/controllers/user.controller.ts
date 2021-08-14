@@ -1,8 +1,8 @@
-import { UserRepository } from "../../shared/typeorm/repositories/user.repository";
-import { Request, Response } from "express";
-import { getCustomRepository } from "typeorm";
-import { UserModel } from "../../shared/typeorm/entities/user.model";
-import { hash } from "bcrypt";
+import { UserRepository } from '../../shared/typeorm/repositories/user.repository';
+import { Request, Response } from 'express';
+import { getCustomRepository } from 'typeorm';
+import { UserModel } from '../../shared/typeorm/entities/user.model';
+import { hash } from 'bcrypt';
 
 export class UserController {
   async index(request: Request, response: Response) {
@@ -29,7 +29,7 @@ export class UserController {
       return response.status(500).json({
         response: {
           data: {},
-          errors: ["internal server error", err.message],
+          errors: ['internal server error', err.message],
           status: 500,
           success: false,
         },
@@ -40,7 +40,7 @@ export class UserController {
   async store(request: Request, response: Response) {
     const { name, email, password } = request.body;
     const userRepository: UserRepository = getCustomRepository(UserRepository);
-    const saltRounds: number = 10;
+    const saltRounds = 10;
 
     try {
       const hasUser = await userRepository.findOne({ email: email });
@@ -48,7 +48,7 @@ export class UserController {
         return response.status(422).json({
           response: {
             data: {},
-            errors: ["user already exists"],
+            errors: ['user already exists'],
             status: 422,
             success: false,
           },
@@ -77,7 +77,7 @@ export class UserController {
       return response.status(500).json({
         response: {
           data: {},
-          errors: ["internal server error", err.message],
+          errors: ['internal server error', err.message],
           status: 500,
           success: false,
         },
@@ -99,7 +99,7 @@ export class UserController {
         return response.status(422).json({
           response: {
             data: {},
-            errors: ["is not possible update entity"],
+            errors: ['is not possible update entity'],
             status: 422,
             success: false,
           },
@@ -126,7 +126,7 @@ export class UserController {
       return response.status(500).json({
         response: {
           data: {},
-          errors: ["internal server error", err.message],
+          errors: ['internal server error', err.message],
           status: 500,
           success: false,
         },
@@ -145,7 +145,7 @@ export class UserController {
         return response.status(422).json({
           response: {
             data: {},
-            errors: ["is not possible delete user"],
+            errors: ['is not possible delete user'],
             status: 422,
             success: false,
           },
@@ -166,7 +166,7 @@ export class UserController {
       return response.status(500).json({
         response: {
           data: {},
-          errors: ["internal server error", err.message],
+          errors: ['internal server error', err.message],
           status: 500,
           success: false,
         },
@@ -185,7 +185,7 @@ export class UserController {
         return response.status(422).json({
           response: {
             data: {},
-            errors: ["is not possible restore user"],
+            errors: ['is not possible restore user'],
             status: 422,
             success: false,
           },
@@ -206,7 +206,7 @@ export class UserController {
       return response.status(500).json({
         response: {
           data: {},
-          errors: ["internal server error", err.message],
+          errors: ['internal server error', err.message],
           status: 500,
           success: false,
         },

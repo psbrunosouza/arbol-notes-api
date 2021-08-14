@@ -1,8 +1,8 @@
-import { Request, Response } from "express";
-import { getCustomRepository } from "typeorm";
-import { CategoryRepository } from "../../shared/typeorm/repositories/category.repository";
-import { UserRepository } from "../../shared/typeorm/repositories/user.repository";
-import { WorkspaceRepository } from "../../shared/typeorm/repositories/workspace.repository";
+import { Request, Response } from 'express';
+import { getCustomRepository } from 'typeorm';
+import { CategoryRepository } from '../../shared/typeorm/repositories/category.repository';
+import { UserRepository } from '../../shared/typeorm/repositories/user.repository';
+import { WorkspaceRepository } from '../../shared/typeorm/repositories/workspace.repository';
 
 export class CategoryController {
   async index(request: Request, response: Response) {
@@ -26,7 +26,7 @@ export class CategoryController {
       return response.status(500).json({
         response: {
           data: {},
-          errors: ["internal server error", err.message],
+          errors: ['internal server error', err.message],
           status: 500,
           success: false,
         },
@@ -50,7 +50,7 @@ export class CategoryController {
         return response.status(404).json({
           response: {
             data: {},
-            errors: ["workspace does not exists"],
+            errors: ['workspace does not exists'],
             status: 404,
             success: false,
           },
@@ -82,7 +82,7 @@ export class CategoryController {
       return response.status(500).json({
         response: {
           data: {},
-          errors: ["internal server error", err.message],
+          errors: ['internal server error', err.message],
           status: 500,
           success: false,
         },
@@ -104,7 +104,7 @@ export class CategoryController {
         return response.status(404).json({
           response: {
             data: {},
-            errors: ["category does not exists"],
+            errors: ['category does not exists'],
             status: 404,
             success: false,
           },
@@ -125,7 +125,7 @@ export class CategoryController {
       return response.status(500).json({
         response: {
           data: {},
-          errors: ["internal server error", err.message],
+          errors: ['internal server error', err.message],
           status: 500,
           success: false,
         },
@@ -144,7 +144,7 @@ export class CategoryController {
         return response.status(422).json({
           response: {
             data: {},
-            errors: ["is not possible delete category"],
+            errors: ['is not possible delete category'],
             status: 422,
             success: false,
           },
@@ -165,7 +165,7 @@ export class CategoryController {
       return response.status(500).json({
         response: {
           data: {},
-          errors: ["internal server error", err.message],
+          errors: ['internal server error', err.message],
           status: 500,
           success: false,
         },
@@ -185,7 +185,7 @@ export class CategoryController {
           response: {
             data: {},
             errors: [
-              "the category cannot be restored because it already exists",
+              'the category cannot be restored because it already exists',
             ],
             status: 422,
             success: false,
@@ -207,7 +207,7 @@ export class CategoryController {
       return response.status(500).json({
         response: {
           data: {},
-          errors: ["internal server error", err.message],
+          errors: ['internal server error', err.message],
           status: 500,
           success: false,
         },

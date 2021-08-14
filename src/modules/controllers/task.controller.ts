@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
-import { getCustomRepository } from "typeorm";
-import { CategoryRepository } from "../../shared/typeorm/repositories/category.repository";
-import { TaskRepository } from "../../shared/typeorm/repositories/task.repository";
+import { Request, Response } from 'express';
+import { getCustomRepository } from 'typeorm';
+import { CategoryRepository } from '../../shared/typeorm/repositories/category.repository';
+import { TaskRepository } from '../../shared/typeorm/repositories/task.repository';
 
 export class TaskController {
   async index(request: Request, response: Response) {
@@ -24,7 +24,7 @@ export class TaskController {
       return response.status(500).json({
         response: {
           data: {},
-          errors: ["internal server error", err.message],
+          errors: ['internal server error', err.message],
           status: 500,
           success: false,
         },
@@ -45,7 +45,7 @@ export class TaskController {
         return response.status(404).json({
           response: {
             data: {},
-            errors: ["category does not exists"],
+            errors: ['category does not exists'],
             status: 404,
             success: false,
           },
@@ -66,7 +66,7 @@ export class TaskController {
       return response.status(500).json({
         response: {
           data: {},
-          errors: ["internal server error", err.message],
+          errors: ['internal server error', err.message],
           status: 500,
           success: false,
         },
@@ -86,7 +86,7 @@ export class TaskController {
         return response.status(404).json({
           response: {
             data: {},
-            errors: ["task does not exists"],
+            errors: ['task does not exists'],
             status: 404,
             success: false,
           },
@@ -107,7 +107,7 @@ export class TaskController {
       return response.status(500).json({
         response: {
           data: {},
-          errors: ["internal server error", err.message],
+          errors: ['internal server error', err.message],
           status: 500,
           success: false,
         },
@@ -125,7 +125,7 @@ export class TaskController {
         return response.status(422).json({
           response: {
             data: {},
-            errors: ["is not possible delete task"],
+            errors: ['is not possible delete task'],
             status: 422,
             success: false,
           },
@@ -146,7 +146,7 @@ export class TaskController {
       return response.status(500).json({
         response: {
           data: {},
-          errors: ["internal server error", err.message],
+          errors: ['internal server error', err.message],
           status: 500,
           success: false,
         },
@@ -165,7 +165,7 @@ export class TaskController {
         return response.status(422).json({
           response: {
             data: {},
-            errors: ["is not possible restore task"],
+            errors: ['is not possible restore task'],
             status: 422,
             success: false,
           },
@@ -186,7 +186,7 @@ export class TaskController {
       return response.status(500).json({
         response: {
           data: {},
-          errors: ["internal server error", err.message],
+          errors: ['internal server error', err.message],
           status: 500,
           success: false,
         },

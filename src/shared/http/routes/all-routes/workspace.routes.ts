@@ -1,4 +1,4 @@
-import { WorkspaceController } from '@modules/controllers/workspace.controller';
+import { WorkspaceController } from '@modules/workspace/controllers/workspace.controller';
 import { ensureAuthenticate } from '@shared/authenticate/auth';
 import express from 'express';
 

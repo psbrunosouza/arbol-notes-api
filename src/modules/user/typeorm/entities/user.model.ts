@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany } from 'typeorm';
-import { DefaultModel } from './default.model';
-import { WorkspaceModel } from './workspace.model';
+import { DefaultModel } from '../../../../shared/typeorm/entities/default.model';
+import { WorkspaceModel } from '../../../workspace/typeorm/entities/workspace.model';
 
 @Entity('users')
 export class UserModel extends DefaultModel {

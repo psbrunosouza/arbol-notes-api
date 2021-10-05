@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import { getCustomRepository } from 'typeorm';
-import { UserRepository } from '../../shared/typeorm/repositories/user.repository';
+import { UserRepository } from '../../modules/user/typeorm/repositories/user.repository';
 import { compare } from 'bcrypt';
 import AppError from '@shared/errors/AppError';
 import jwt from 'jsonwebtoken';
-const authConfig = require('../../config/auth.json');
+import { secret } from '../../config/auth';
 export class AuthService {
   async authenticate(request: Request, response: Response) {
     const { email, password } = request.body;
@@ -20,7 +20,7 @@ export class AuthService {
       throw new AppError('Invalid credentials', 401);
     }
 
-    const token = jwt.sign({ id: user.id }, authConfig.secret, {
+    const token = jwt.sign({ id: user.id }, secret, {
       expiresIn: 86400,
     });
 

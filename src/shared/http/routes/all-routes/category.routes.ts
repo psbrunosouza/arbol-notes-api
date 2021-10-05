@@ -1,5 +1,5 @@
 import express from 'express';
-import { CategoryController } from '../../../../modules/controllers/category.controller';
+import { CategoryController } from '../../../../modules/category/controllers/category.controller';
 import { ensureAuthenticate } from '../../../authenticate/auth';
 
 const apiRouter = express.Router();

@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
-import { CategoryModel } from './category.model';
-import { DefaultModel } from './default.model';
-import { UserModel } from './user.model';
+import { CategoryModel } from '../../../category/typeorm/entities/category.model';
+import { DefaultModel } from '../../../../shared/typeorm/entities/default.model';
+import { UserModel } from '../../../user/typeorm/entities/user.model';
 
 @Entity('workspaces')
 export class WorkspaceModel extends DefaultModel {

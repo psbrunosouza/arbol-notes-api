@@ -5,13 +5,9 @@ import cors from 'cors';
 import Routes from './routes/index.routes';
 import AppError from '@shared/errors/AppError';
 import '../typeorm';
-/** Start server using express */
 const app = express();
-/** manage requests from frontend */
 app.use(cors());
-/** allow json return in the server */
 app.use(express.json());
-
 app.use(Routes);
 
 app.use(

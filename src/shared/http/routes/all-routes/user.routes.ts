@@ -1,4 +1,4 @@
-import { UserController } from '@modules/controllers/user.controller';
+import { UserController } from '@modules/user/controllers/user.controller';
 import { ensureAuthenticate } from '@shared/authenticate/auth';
 import express from 'express';
 

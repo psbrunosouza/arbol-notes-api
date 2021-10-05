@@ -1,20 +1,22 @@
 import { Request, Response } from 'express';
 import { getCustomRepository } from 'typeorm';
-import { CategoryRepository } from '../../shared/typeorm/repositories/category.repository';
-import { TaskRepository } from '../../shared/typeorm/repositories/task.repository';
+import { CategoryRepository } from '../typeorm/repositories/category.repository';
+import { UserRepository } from '../../user/typeorm/repositories/user.repository';
+import { WorkspaceRepository } from '../../workspace/typeorm/repositories/workspace.repository';
 
-export class TaskController {
+export class CategoryController {
   async index(request: Request, response: Response) {
-    const taskRepository: TaskRepository = getCustomRepository(TaskRepository);
+    const categoryRepository: CategoryRepository =
+      getCustomRepository(CategoryRepository);
 
     try {
-      const [tasks, count] = await taskRepository.findAndCount({
+      const [categories, count] = await categoryRepository.findAndCount({
         withDeleted: false,
       });
 
       return response.status(200).json({
         response: {
-          data: { tasks, count },
+          data: { categories, count },
           errors: [],
           status: 200,
           success: true,
@@ -33,30 +35,44 @@ export class TaskController {
   }
 
   async store(request: Request, response: Response) {
-    const task = request.body;
-    const taskRepository: TaskRepository = getCustomRepository(TaskRepository);
+    const category = request.body;
     const categoryRepository: CategoryRepository =
       getCustomRepository(CategoryRepository);
+    const workspaceRepository: WorkspaceRepository =
+      getCustomRepository(WorkspaceRepository);
 
     try {
-      const hasCategory = await categoryRepository.findOne(task.categoryId);
+      const workspace = await workspaceRepository.findOne({
+        where: { id: category.workspaceId },
+      });
 
-      if (!hasCategory) {
+      if (!workspace) {
         return response.status(404).json({
           response: {
             data: {},
-            errors: ['category does not exists'],
+            errors: ['workspace does not exists'],
             status: 404,
             success: false,
           },
         });
       }
 
-      await taskRepository.save(task);
+      if (!category.name) {
+        return response.status(422).json({
+          response: {
+            data: {},
+            errors: ["entity 'name' cannot be empty"],
+            status: 422,
+            success: false,
+          },
+        });
+      }
+
+      await categoryRepository.save(category);
 
       return response.status(201).json({
         response: {
-          data: { task },
+          data: { category },
           errors: [],
           status: 201,
           success: true,
@@ -76,28 +92,30 @@ export class TaskController {
 
   async edit(request: Request, response: Response) {
     const { id } = request.params;
-    const task = request.body;
-    const taskRepository: TaskRepository = getCustomRepository(TaskRepository);
+    const category = request.body;
+
+    const categoryRepository: CategoryRepository =
+      getCustomRepository(CategoryRepository);
 
     try {
-      const hasTask = await taskRepository.findOne(id);
+      const hasCategory = await categoryRepository.findOne(id);
 
-      if (!hasTask) {
+      if (!hasCategory) {
         return response.status(404).json({
           response: {
             data: {},
-            errors: ['task does not exists'],
+            errors: ['category does not exists'],
             status: 404,
             success: false,
           },
         });
       }
 
-      await taskRepository.save({ ...hasTask, ...task });
+      await categoryRepository.save({ ...hasCategory, ...category });
 
       return response.status(200).json({
         response: {
-          data: { task },
+          data: { ...hasCategory, ...category },
           errors: [],
           status: 200,
           success: true,
@@ -117,22 +135,23 @@ export class TaskController {
 
   async delete(request: Request, response: Response) {
     const { id } = request.params;
-    const taskRepository: TaskRepository = getCustomRepository(TaskRepository);
+    const categoryRepository: CategoryRepository =
+      getCustomRepository(CategoryRepository);
 
     try {
-      const hasTask = await taskRepository.findOne(id);
-      if (!hasTask) {
+      const hasCategory = await categoryRepository.findOne(id);
+      if (!hasCategory) {
         return response.status(422).json({
           response: {
             data: {},
-            errors: ['is not possible delete task'],
+            errors: ['is not possible delete category'],
             status: 422,
             success: false,
           },
         });
       }
 
-      await taskRepository.softDelete(id);
+      await categoryRepository.softDelete(id);
 
       return response.status(200).json({
         response: {
@@ -156,23 +175,25 @@ export class TaskController {
 
   async restore(request: Request, response: Response) {
     const { id } = request.params;
-    const taskRepository: TaskRepository = getCustomRepository(TaskRepository);
+    const categoryRepository: CategoryRepository =
+      getCustomRepository(CategoryRepository);
 
     try {
-      const hasTask = await taskRepository.findOne(id);
-
-      if (hasTask) {
+      const hasCategory = await categoryRepository.findOne(id);
+      if (hasCategory) {
         return response.status(422).json({
           response: {
             data: {},
-            errors: ['is not possible restore task'],
+            errors: [
+              'the category cannot be restored because it already exists',
+            ],
             status: 422,
             success: false,
           },
         });
       }
 
-      await taskRepository.restore(id);
+      await categoryRepository.restore(id);
 
       return response.status(200).json({
         response: {

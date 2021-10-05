@@ -1,4 +1,4 @@
-import { TaskController } from '@modules/controllers/task.controller';
+import { TaskController } from '@modules/task/controllers/task.controller';
 import { ensureAuthenticate } from '@shared/authenticate/auth';
 import express from 'express';
 

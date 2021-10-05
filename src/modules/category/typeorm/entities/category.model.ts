@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
-import { DefaultModel } from './default.model';
-import { WorkspaceModel } from './workspace.model';
+import { DefaultModel } from '../../../../shared/typeorm/entities/default.model';
+import { WorkspaceModel } from '../../../workspace/typeorm/entities/workspace.model';
 
 @Entity('categories')
 export class CategoryModel extends DefaultModel {

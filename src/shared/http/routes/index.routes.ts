@@ -1,7 +1,7 @@
 import express from 'express';
 import AuthService from '@shared/services/auth.service';
 import categoryRoutes from '@shared/http/routes/all-routes/category.routes';
-import userRoutes from '@shared/http/routes/all-routes/user.routes';
+import userRoutes from '@modules/user/http/routes/user.routes';
 import workspaceRoutes from '@shared/http/routes/all-routes/workspace.routes';
 import taskRoutes from '@shared/http/routes/all-routes/task.routes';
 

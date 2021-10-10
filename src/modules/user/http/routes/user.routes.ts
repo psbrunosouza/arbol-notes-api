@@ -10,6 +10,5 @@ apiRouter.use(ensureAuthenticate);
 apiRouter.get('/list', userController.index);
 apiRouter.delete('/delete/:id', userController.delete);
 apiRouter.put('/edit/:id', userController.edit);
-apiRouter.get('/restore/:id', userController.restore);
 
 export default apiRouter;

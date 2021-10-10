@@ -9,7 +9,7 @@ export class UserModel extends DefaultModel {
   @Column('varchar')
   email: string;
   @Column('varchar')
-  password: string | undefined;
+  password: string;
   @OneToMany(() => UserModel, user => user.workspaces)
   workspaces: WorkspaceModel[];
 }

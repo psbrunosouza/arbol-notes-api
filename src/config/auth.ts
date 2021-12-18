@@ -1,1 +1,4 @@
-export const secret = 'd41d8cd98f00b204e9800998ecf8427e';
+export const auth = {
+  secret: process.env.JWT_SECRET || '',
+  expiresIn: process.env.JWT_EXPIRES_IN || '1d',
+};

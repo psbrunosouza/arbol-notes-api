@@ -1,14 +1,14 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { DefaultEntity } from '@shared/infra/typeorm/entities/DefaultEntity';
-import { IImageDTO } from '@modules/image/dtos/IImageDTO';
+import { IStatusDTO } from '@modules/status/dtos/IStatusDTO';
 
-@Entity('images')
-export class Image extends DefaultEntity implements IImageDTO {
+@Entity('statuses')
+export class Status extends DefaultEntity implements IStatusDTO {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
   @Column()
-  link: string;
+  name: string;
 
   @Column()
   description?: string;

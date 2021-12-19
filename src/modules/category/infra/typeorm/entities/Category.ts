@@ -1,14 +1,14 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { DefaultEntity } from '@shared/infra/typeorm/entities/DefaultEntity';
-import { IImageDTO } from '@modules/image/dtos/IImageDTO';
+import { ICategoryDTO } from '@modules/category/dtos/ICategoryDTO';
 
-@Entity('images')
-export class Image extends DefaultEntity implements IImageDTO {
+@Entity('categories')
+export class Category extends DefaultEntity implements ICategoryDTO {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
   @Column()
-  link: string;
+  name: string;
 
   @Column()
   description?: string;

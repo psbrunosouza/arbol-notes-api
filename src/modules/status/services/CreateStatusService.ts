@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
-import { IProfileDTO } from '@modules/profile/dtos/IProfileDTO';
 import { StatusRepository } from '@modules/status/infra/typeorm/repositories/StatusRepository';
+import { IStatusDTO } from '@modules/status/dtos/IStatusDTO';
 
 @injectable()
 export default class CreateStatusService {
@@ -9,7 +9,7 @@ export default class CreateStatusService {
     private statusRepository: StatusRepository,
   ) {}
 
-  public async execute(profile: IProfileDTO): Promise<IProfileDTO> {
+  public async execute(profile: IStatusDTO): Promise<IStatusDTO> {
     return this.statusRepository.create(profile);
   }
 }

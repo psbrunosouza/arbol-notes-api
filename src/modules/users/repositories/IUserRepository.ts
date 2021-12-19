@@ -1,9 +1,9 @@
-import { IProfileDTO } from '@modules/profile/dtos/IProfileDTO';
+import { IUserDTO } from '@modules/users/dtos/IUserDTO';
 
 export interface IUserRepository {
-  create(data: IProfileDTO): Promise<IProfileDTO>;
-  list(): Promise<IProfileDTO[]>;
-  find(id: number): Promise<IProfileDTO | undefined>;
+  create(data: IUserDTO): Promise<IUserDTO>;
+  list(): Promise<IUserDTO[]>;
+  find(id: number): Promise<IUserDTO | undefined>;
   delete(id: number): Promise<void>;
-  update(id: number, data: IProfileDTO): Promise<void>;
+  update(id: number, data: IUserDTO): Promise<void>;
 }

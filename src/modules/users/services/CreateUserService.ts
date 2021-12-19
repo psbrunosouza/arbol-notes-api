@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
-import { IProfileDTO } from '@modules/profile/dtos/IProfileDTO';
 import { UserRepository } from '@modules/users/infra/typeorm/repositories/UserRepository';
+import { IUserDTO } from '@modules/users/dtos/IUserDTO';
 
 @injectable()
 export default class CreateUserService {
@@ -9,7 +9,7 @@ export default class CreateUserService {
     private userRepository: UserRepository,
   ) {}
 
-  public async execute(profile: IProfileDTO): Promise<IProfileDTO> {
-    return this.userRepository.create(profile);
+  public async execute(user: IUserDTO): Promise<IUserDTO> {
+    return this.userRepository.create(user);
   }
 }

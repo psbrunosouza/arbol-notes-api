@@ -1,8 +1,8 @@
 import { getRepository, Repository } from 'typeorm';
 import { injectable } from 'tsyringe';
-import { IProfileDTO } from '@modules/profile/dtos/IProfileDTO';
 import { User } from '@modules/users/infra/typeorm/entities/User';
 import { IUserRepository } from '@modules/users/repositories/IUserRepository';
+import { IUserDTO } from '@modules/users/dtos/IUserDTO';
 
 @injectable()
 export class UserRepository implements IUserRepository {
@@ -12,7 +12,7 @@ export class UserRepository implements IUserRepository {
     this.repository = getRepository(User);
   }
 
-  create(data: IProfileDTO): Promise<IProfileDTO> {
+  create(data: IUserDTO): Promise<IUserDTO> {
     return this.repository.save(data);
   }
 
@@ -20,15 +20,15 @@ export class UserRepository implements IUserRepository {
     await this.repository.delete(id);
   }
 
-  find(id: number): Promise<IProfileDTO | undefined> {
+  find(id: number): Promise<IUserDTO | undefined> {
     return this.repository.findOne(id);
   }
 
-  list(): Promise<IProfileDTO[]> {
+  list(): Promise<IUserDTO[]> {
     return this.repository.find();
   }
 
-  async update(id: number, data: IProfileDTO): Promise<void> {
+  async update(id: number, data: IUserDTO): Promise<void> {
     await this.repository.update(id, data);
   }
 }

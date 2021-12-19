@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
-import { IProfileDTO } from '@modules/profile/dtos/IProfileDTO';
 import { CategoryRepository } from '@modules/category/infra/typeorm/repositories/CategoryRepository';
+import { ICategoryDTO } from '@modules/category/dtos/ICategoryDTO';
 
 @injectable()
 export default class ShowCategoryService {
@@ -9,7 +9,7 @@ export default class ShowCategoryService {
     private categoryRepository: CategoryRepository,
   ) {}
 
-  public async execute(id: number): Promise<IProfileDTO | undefined> {
+  public async execute(id: number): Promise<ICategoryDTO | undefined> {
     return this.categoryRepository.find(id);
   }
 }

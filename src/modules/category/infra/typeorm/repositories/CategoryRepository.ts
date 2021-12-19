@@ -1,8 +1,8 @@
 import { getRepository, Repository } from 'typeorm';
 import { injectable } from 'tsyringe';
-import { IProfileDTO } from '@modules/profile/dtos/IProfileDTO';
 import { ICategoryRepository } from '@modules/category/repositories/ICategoryRepository';
 import { Category } from '@modules/category/infra/typeorm/entities/Category';
+import { ICategoryDTO } from '@modules/category/dtos/ICategoryDTO';
 
 @injectable()
 export class CategoryRepository implements ICategoryRepository {
@@ -12,7 +12,7 @@ export class CategoryRepository implements ICategoryRepository {
     this.repository = getRepository(Category);
   }
 
-  create(data: IProfileDTO): Promise<IProfileDTO> {
+  create(data: ICategoryDTO): Promise<ICategoryDTO> {
     return this.repository.save(data);
   }
 
@@ -20,15 +20,15 @@ export class CategoryRepository implements ICategoryRepository {
     await this.repository.delete(id);
   }
 
-  find(id: number): Promise<IProfileDTO | undefined> {
+  find(id: number): Promise<ICategoryDTO | undefined> {
     return this.repository.findOne(id);
   }
 
-  list(): Promise<IProfileDTO[]> {
+  list(): Promise<ICategoryDTO[]> {
     return this.repository.find();
   }
 
-  async update(id: number, data: IProfileDTO): Promise<void> {
+  async update(id: number, data: ICategoryDTO): Promise<void> {
     await this.repository.update(id, data);
   }
 }

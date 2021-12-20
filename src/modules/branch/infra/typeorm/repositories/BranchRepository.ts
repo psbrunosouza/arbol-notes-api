@@ -21,11 +21,19 @@ export class BranchRepository implements IBranchRepository {
   }
 
   find(id: number): Promise<IBranchDTO | undefined> {
-    return this.repository.findOne(id);
+    return this.repository
+      .createQueryBuilder('branches')
+      .leftJoinAndSelect('branches.children', 'child_branch')
+      .andWhere('branches.id = :id', { id })
+      .getOne();
   }
 
-  list(): Promise<IBranchDTO[]> {
-    return this.repository.find();
+  listWithoutChildren(): Promise<IBranchDTO[]> {
+    return this.repository
+      .createQueryBuilder('branches')
+      .leftJoinAndSelect('branches.children', 'child_branch')
+      .where('branches.parent IS NULL')
+      .getMany();
   }
 
   async update(id: number, data: IBranchDTO): Promise<void> {

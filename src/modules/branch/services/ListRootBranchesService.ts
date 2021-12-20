@@ -3,13 +3,13 @@ import { BranchRepository } from '@modules/branch/infra/typeorm/repositories/Bra
 import { IBranchDTO } from '@modules/branch/dtos/IBranchDTO';
 
 @injectable()
-export default class ListBranchService {
+export default class ListRootBranchesService {
   constructor(
     @inject(BranchRepository)
     private branchRepository: BranchRepository,
   ) {}
 
   public async execute(): Promise<IBranchDTO[]> {
-    return this.branchRepository.list();
+    return this.branchRepository.listWithoutChildren();
   }
 }

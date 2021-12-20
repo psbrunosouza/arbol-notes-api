@@ -1,5 +1,5 @@
 import { inject, injectable } from 'tsyringe';
-import { BranchRepository } from "@modules/branch/infra/typeorm/repositories/BranchRepository";
+import { BranchRepository } from '@modules/branch/infra/typeorm/repositories/BranchRepository';
 
 @injectable()
 export default class DeleteBranchService {

@@ -7,6 +7,8 @@ const errorsHandler = (
   response: Response,
   _: NextFunction,
 ): Response => {
+  console.log(error.message);
+
   if (error instanceof AppError) {
     return response.status(error.status).json({
       status: error.status,

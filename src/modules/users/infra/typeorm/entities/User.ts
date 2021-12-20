@@ -31,9 +31,9 @@ export class User extends DefaultEntity implements IUserDTO {
 
   @ManyToOne(() => Image, { eager: true })
   @JoinColumn({ name: 'image_id' })
-  image: IImageDTO;
+  image: Image;
 
   @ManyToOne(() => Profile, { eager: true })
   @JoinColumn({ name: 'profile_id' })
-  profile: IProfileDTO;
+  profile: Profile;
 }

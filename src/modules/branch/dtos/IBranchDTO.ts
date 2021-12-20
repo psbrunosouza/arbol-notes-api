@@ -10,4 +10,5 @@ export interface IBranchDTO extends IDefaultDTO {
   user: IUserDTO;
   status: IStatusDTO;
   parent: IBranchDTO;
+  children: IBranchDTO[];
 }

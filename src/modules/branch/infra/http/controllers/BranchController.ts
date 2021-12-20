@@ -1,15 +1,20 @@
 import { container } from 'tsyringe';
 import { Request, Response } from 'express';
-import ListCategoryService from '@modules/category/services/ListCategoryService';
 import CreateBranchService from '@modules/branch/services/CreateBranchService';
 import ShowBranchService from '@modules/branch/services/ShowBranchService';
 import UpdateBranchService from '@modules/branch/services/UpdateBranchService';
 import DeleteBranchService from '@modules/branch/services/DeleteBranchService';
+import ListRootBranchesService from '@modules/branch/services/ListRootBranchesService';
 
 class BranchController {
-  async list(request: Request, response: Response): Promise<Response> {
-    const listCategoryService = container.resolve(ListCategoryService);
-    return response.json(await listCategoryService.execute());
+  async listBranchesWithoutChildren(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const listBranchesWithoutChildrenService = container.resolve(
+      ListRootBranchesService,
+    );
+    return response.json(await listBranchesWithoutChildrenService.execute());
   }
 
   async create(request: Request, response: Response): Promise<Response> {

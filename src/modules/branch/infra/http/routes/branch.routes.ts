@@ -11,7 +11,7 @@ BranchRoutes.post('/', BranchController.create, [
 BranchRoutes.put('/:id', BranchController.update, [
   celebrate({ [Segments.BODY]: branchSchema }),
 ]);
-BranchRoutes.get('/', BranchController.list);
+BranchRoutes.get('/roots', BranchController.listBranchesWithoutChildren);
 BranchRoutes.get('/:id', BranchController.show);
 BranchRoutes.delete('/:id', BranchController.delete);
 

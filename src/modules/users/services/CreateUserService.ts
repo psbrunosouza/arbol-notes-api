@@ -1,6 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 import { UserRepository } from '@modules/users/infra/typeorm/repositories/UserRepository';
 import { IUserDTO } from '@modules/users/dtos/IUserDTO';
+import { hash } from 'bcrypt';
 
 @injectable()
 export default class CreateUserService {
@@ -10,6 +11,8 @@ export default class CreateUserService {
   ) {}
 
   public async execute(user: IUserDTO): Promise<IUserDTO> {
-    return this.userRepository.create(user);
+    user.password = await hash(user.password, 8);
+    const createdUser = await this.userRepository.create(user);
+    return { ...createdUser, password: undefined } as unknown as IUserDTO;
   }
 }

@@ -5,8 +5,17 @@ import CreateUserService from '@modules/users/services/CreateUserService';
 import ShowUserService from '@modules/users/services/ShowUserService';
 import UpdateUserService from '@modules/users/services/UpdateUserService';
 import DeleteUserService from '@modules/users/services/DeleteUserService';
+import { AuthUserService } from '@modules/users/services/AuthUserService';
 
 class UserController {
+  async auth(request: Request, response: Response): Promise<Response> {
+    const data = request.body;
+
+    const authUserService = container.resolve(AuthUserService);
+
+    return response.json(await authUserService.execute(data));
+  }
+
   async list(request: Request, response: Response): Promise<Response> {
     const listUserService = container.resolve(ListUserService);
     return response.json(await listUserService.execute());

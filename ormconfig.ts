@@ -1,12 +1,14 @@
-import { database } from './src/config/database';
+import { DatabaseConfigurations } from './src/config/database';
+
+const databaseConfigurations = new DatabaseConfigurations();
 
 module.exports = {
   type: 'postgres',
-  host: database.host,
-  port: database.port,
-  username: database.username,
-  password: database.password,
-  database: database.database,
+  host: databaseConfigurations.host,
+  port: databaseConfigurations.port,
+  username: databaseConfigurations.username,
+  password: databaseConfigurations.password,
+  database: databaseConfigurations.database,
   entities: ['./src/modules/**/typeorm/entities/*.ts'],
   migrations: ['./src/shared/infra/typeorm/migrations/*.ts'],
   cli: {

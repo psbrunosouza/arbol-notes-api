@@ -1,5 +1,6 @@
 import app from './app';
-import { api } from '@config/api';
+import { ApiConfigurations } from '@config/api';
 
+const apiConfigurations = new ApiConfigurations();
 // eslint-disable-next-line no-console
-app.listen(api.port, () => console.log('[API] Server started'));
+app.listen(apiConfigurations.port, () => console.log('[API] Server started'));

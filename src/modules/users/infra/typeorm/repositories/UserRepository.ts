@@ -31,4 +31,11 @@ export class UserRepository implements IUserRepository {
   async update(id: number, data: IUserDTO): Promise<void> {
     await this.repository.update(id, data);
   }
+
+  findUserByEmail(email: string): Promise<IUserDTO | undefined> {
+    return this.repository.findOne({
+      select: ['id', 'email', 'name', 'password'],
+      where: { email },
+    });
+  }
 }

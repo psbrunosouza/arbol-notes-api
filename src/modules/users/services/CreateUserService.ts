@@ -12,7 +12,7 @@ export default class CreateUserService {
 
   public async execute(user: IUserDTO): Promise<IUserDTO> {
     user.password = await hash(user.password, 8);
-    const createdUser = await this.userRepository.create(user);
+    const createdUser = await this.userRepository.create({ ...user });
     return { ...createdUser, password: undefined } as unknown as IUserDTO;
   }
 }

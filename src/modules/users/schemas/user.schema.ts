@@ -5,7 +5,7 @@ const userSchema = Joi.object({
   description: Joi.string().allow(null),
   email: Joi.string().email().required(),
   password: Joi.string().required(),
-  profile: Joi.object().required(),
+  profile: Joi.object().allow(null),
   image: Joi.object().allow(null),
 });
 

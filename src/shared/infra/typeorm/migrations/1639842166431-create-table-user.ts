@@ -43,7 +43,8 @@ export class createTableUser1639842166431 implements MigrationInterface {
           {
             name: 'profile_id',
             type: 'integer',
-            isNullable: false,
+            isNullable: true,
+            default: null,
           },
           {
             name: 'created_at',

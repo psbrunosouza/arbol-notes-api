@@ -1,4 +1,4 @@
-import { DatabaseConfigurations } from './src/config/database';
+import { DatabaseConfigurations } from '@config/database';
 
 const databaseConfigurations = new DatabaseConfigurations();
 
@@ -14,4 +14,5 @@ module.exports = {
   cli: {
     migrationsDir: './src/shared/infra/typeorm/migrations',
   },
+  synchronize: true,
 };

@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { DefaultEntity } from '@shared/infra/typeorm/entities/DefaultEntity';
+import { DefaultEntity } from "@shared/infra/typeorm/entities/DefaultEntity";
 import { IImageDTO } from '@modules/image/dtos/IImageDTO';
 
 @Entity('images')

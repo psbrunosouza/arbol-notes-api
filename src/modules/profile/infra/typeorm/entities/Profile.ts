@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { DefaultEntity } from '@shared/infra/typeorm/entities/DefaultEntity';
 import { IProfileDTO } from '@modules/profile/dtos/IProfileDTO';
+import { DefaultEntity } from "@shared/infra/typeorm/entities/DefaultEntity";
 
 @Entity('profiles')
 export class Profile extends DefaultEntity implements IProfileDTO {

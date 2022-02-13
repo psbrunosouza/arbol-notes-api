@@ -5,10 +5,8 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { DefaultEntity } from '@shared/infra/typeorm/entities/DefaultEntity';
+import { DefaultEntity } from "@shared/infra/typeorm/entities/DefaultEntity";
 import { IUserDTO } from '@modules/users/dtos/IUserDTO';
-import { IProfileDTO } from '@modules/profile/dtos/IProfileDTO';
-import { IImageDTO } from '@modules/image/dtos/IImageDTO';
 import { Image } from '@modules/image/infra/typeorm/entities/Image';
 import { Profile } from '@modules/profile/infra/typeorm/entities/Profile';
 

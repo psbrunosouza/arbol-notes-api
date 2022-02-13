@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { IDefaultDTO } from '@shared/dtos/IDefaultDTO';
 
-@Entity()
+@Entity('default')
 export class DefaultEntity implements IDefaultDTO {
   @PrimaryGeneratedColumn('increment')
   id?: number;

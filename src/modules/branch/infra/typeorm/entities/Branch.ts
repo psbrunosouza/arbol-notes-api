@@ -5,9 +5,6 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
-  Tree,
-  TreeChildren,
-  TreeParent,
 } from 'typeorm';
 import { DefaultEntity } from '@shared/infra/typeorm/entities/DefaultEntity';
 import { IBranchDTO } from '@modules/branch/dtos/IBranchDTO';

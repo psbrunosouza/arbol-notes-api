@@ -11,7 +11,7 @@ async function create() {
   const profiles: IProfile[] = [
     {
       name: 'Admin',
-      description: 'Adiministrador',
+      description: 'Administrador',
     },
     {
       name: 'Moderator',
@@ -22,7 +22,7 @@ async function create() {
   try {
     for (const profile of profiles) {
       await connection.query(
-        'INSERT INTO profiles (name, description) VALUES ($1, $2)',
+        `INSERT INTO profiles (name, description) VALUES ($1, $2)`,
         [profile.name, profile.description],
       );
     }
@@ -33,4 +33,5 @@ async function create() {
   }
 }
 
+// eslint-disable-next-line no-console
 create().then(() => console.log('Profile created with successful!'));

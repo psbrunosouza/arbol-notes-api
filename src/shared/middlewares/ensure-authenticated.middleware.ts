@@ -4,7 +4,8 @@ import { AuthConfigurations } from '@config/auth';
 import jwt from 'jsonwebtoken';
 
 interface TokenPayload {
-  id: number;
+  userId: number;
+  name: string;
   iat: number;
   exp: number;
 }
@@ -26,8 +27,8 @@ export const ensureAuthenticatedMiddleware = (
 
   try {
     const data = jwt.verify(token, String(authConfigurations.secret));
-    const { id } = data as TokenPayload;
-    request.userId = id;
+    const { userId } = data as TokenPayload;
+    request.userId = userId;
     return next();
   } catch {
     throw new AppError('Unauthorized access', 401);

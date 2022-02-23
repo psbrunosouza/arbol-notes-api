@@ -14,7 +14,12 @@ class BranchController {
     const listBranchesWithoutChildrenService = container.resolve(
       ListRootBranchesService,
     );
-    return response.json(await listBranchesWithoutChildrenService.execute());
+
+    const loggedUserId = request.userId;
+
+    return response.json(
+      await listBranchesWithoutChildrenService.execute(loggedUserId),
+    );
   }
 
   async create(request: Request, response: Response): Promise<Response> {

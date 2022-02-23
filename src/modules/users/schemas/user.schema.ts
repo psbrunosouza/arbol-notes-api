@@ -2,11 +2,11 @@ import Joi from 'joi';
 
 const userSchema = Joi.object({
   name: Joi.string().required(),
-  description: Joi.string().allow(null),
+  description: Joi.string().optional().allow(null),
   email: Joi.string().email().required(),
   password: Joi.string().required(),
-  profile: Joi.object().allow(null),
-  image: Joi.object().allow(null),
+  profile: Joi.object().optional().allow(null),
+  image: Joi.object().optional().allow(null),
 });
 
 userSchema.options({

@@ -5,7 +5,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { DefaultEntity } from "@shared/infra/typeorm/entities/DefaultEntity";
+import { DefaultEntity } from '@shared/infra/typeorm/entities/DefaultEntity';
 import { IUserDTO } from '@modules/users/dtos/IUserDTO';
 import { Image } from '@modules/image/infra/typeorm/entities/Image';
 import { Profile } from '@modules/profile/infra/typeorm/entities/Profile';
@@ -18,8 +18,8 @@ export class User extends DefaultEntity implements IUserDTO {
   @Column()
   name: string;
 
-  @Column()
-  description?: string;
+  @Column({ nullable: true })
+  description: string;
 
   @Column()
   email: string;

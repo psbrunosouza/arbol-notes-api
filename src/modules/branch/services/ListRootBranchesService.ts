@@ -9,7 +9,7 @@ export default class ListRootBranchesService {
     private branchRepository: BranchRepository,
   ) {}
 
-  public async execute(): Promise<IBranchDTO[]> {
-    return this.branchRepository.listWithoutChildren();
+  public async execute(loggedUserId: number): Promise<IBranchDTO[]> {
+    return this.branchRepository.listWithoutChildren(loggedUserId);
   }
 }

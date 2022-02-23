@@ -31,8 +31,9 @@ export class createTableUser1639842166431 implements MigrationInterface {
           },
           {
             name: 'description',
-            type: 'text',
+            type: 'varchar',
             isNullable: true,
+            default: null,
           },
           {
             name: 'image_id',

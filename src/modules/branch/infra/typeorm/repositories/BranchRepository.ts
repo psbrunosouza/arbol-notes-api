@@ -1,4 +1,4 @@
-import { getRepository, IsNull, Repository } from "typeorm";
+import { getRepository, IsNull, Repository } from 'typeorm';
 import { injectable } from 'tsyringe';
 import { IBranchRepository } from '@modules/branch/repositories/IBranchRepository';
 import { Branch } from '@modules/branch/infra/typeorm/entities/Branch';
@@ -21,25 +21,26 @@ export class BranchRepository implements IBranchRepository {
   }
 
   find(id: number): Promise<IBranchDTO | undefined> {
-    return this.repository.findOne(id, {
-      relations: ['children'],
-    });
+    return this.repository
+      .createQueryBuilder('branches')
+      .leftJoinAndSelect('branches.children', 'children')
+      .leftJoinAndSelect('branches.status', 'status')
+      .leftJoinAndSelect('branches.user', 'user')
+      .leftJoinAndSelect('branches.category', 'category')
+      .where({ id })
+      .getOne();
   }
 
-  async listWithoutChildren(loggedUserId: number): Promise<IBranchDTO[]> {
-    const branch = await this.repository.find({
-      relations: ['children'],
-      where: {
-        parent: {
-          id: IsNull(),
-        },
-        user: {
-          id: loggedUserId,
-        },
-      },
-    });
-
-    return branch;
+  async listRoots(loggedUserId: number): Promise<IBranchDTO[]> {
+    return this.repository
+      .createQueryBuilder('branches')
+      .leftJoinAndSelect('branches.children', 'children')
+      .leftJoinAndSelect('branches.status', 'status')
+      .leftJoinAndSelect('branches.user', 'user')
+      .leftJoinAndSelect('branches.category', 'category')
+      .where('branches.parent_branch_id IS NULL')
+      .andWhere('branches.user_id = :loggedUserId', { loggedUserId })
+      .getMany();
   }
 
   async update(id: number, data: IBranchDTO): Promise<void> {

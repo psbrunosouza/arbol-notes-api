@@ -1,4 +1,5 @@
 import {
+  AfterLoad,
   Column,
   Entity,
   JoinColumn,
@@ -45,4 +46,11 @@ export class Branch extends DefaultEntity implements IBranchDTO {
   @ManyToOne(() => Category, { eager: true })
   @JoinColumn({ name: 'category_id' })
   category: ICategoryDTO;
+
+  childrenQtd?: number;
+
+  @AfterLoad()
+  public afterLoad(): void {
+    this.childrenQtd = this.children ? this.children.length : undefined;
+  }
 }

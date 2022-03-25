@@ -10,6 +10,6 @@ export default class ListRootBranchesService {
   ) {}
 
   public async execute(loggedUserId: number): Promise<IBranchDTO[]> {
-    return this.branchRepository.listWithoutChildren(loggedUserId);
+    return this.branchRepository.listRoots(loggedUserId);
   }
 }

@@ -24,8 +24,11 @@ class BranchController {
 
   async create(request: Request, response: Response): Promise<Response> {
     const data = request.body;
+    const id = request.userId;
     const createBranchService = container.resolve(CreateBranchService);
-    return response.json(await createBranchService.execute(data));
+    return response.json(
+      await createBranchService.execute({ ...data, user: { id: id } }),
+    );
   }
 
   async show(request: Request, response: Response): Promise<Response> {

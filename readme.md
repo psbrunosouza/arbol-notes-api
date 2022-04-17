@@ -18,7 +18,7 @@ aplicações.
 $ git clone https://github.com/psbrunosouza/arbolnotes_backend.git
 
 # Entre na pasta do repositório
-$ cd arbolnotes_backend
+$ cd arbol-notes-api
 
 # Instale as dependências
 $ yarn install/ npm install

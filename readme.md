@@ -13,6 +13,12 @@ em alguma área de interesse a conseguir acompanhar e fixar melhor os conteúdos
 lhes são apresentados,
 seja de um curso, artigos, livros, documentação, etc.
 
+## Estrutura do banco de dados
+
+<div style="display: flex; justify-content: center; align-items: center">
+  <img alt="" src="https://user-images.githubusercontent.com/45085894/163734265-ebc3e3c6-cd4a-400a-8917-e630df1616da.png">
+</div>
+
 ## ✅ Como Usar
 
   ```
@@ -28,11 +34,6 @@ $ yarn install/ npm install
 # Rode a aplicação
 $ npm run dev:server
   ```
-
-## 💻 DER
-<div style="display: flex; justify-content: center; align-items: center">
-  <img alt="" src="https://user-images.githubusercontent.com/45085894/163734265-ebc3e3c6-cd4a-400a-8917-e630df1616da.png">
-</div>
 
 ## 🚀 Tecnologias
 Esse projeto foi desenvolvido com:

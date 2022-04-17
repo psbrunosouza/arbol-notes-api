@@ -1,17 +1,9 @@
 # Arbol notes API
 
-O Arbol é uma ferramenta de acompanhamento de tarefas onde o utilizador terá a experiência
-de realizar as suas atividades sem precisar ele mesmo rememorá-las, criar agendas
-manualmente, etc. O Arbol, além das ferra-mentas e funcionalidades
-já idealizadas por ferramentas de TODO-LIST anteriores, como: check-boxes,
-datas, listas, tabelas, imagens, anexos e mais. Contará também com a funcionalidade
-de repetição espaçada, já ex-plorada por aplicativos como ANKI que entrega ao utilizador
-as tarefas que ele precisa revisar/estudar com o passar do tempo.
-
-O principal objetivo da aplicação é auxiliar estudantes que estão se desen-volvendo
-em alguma área de interesse a conseguir acompanhar e fixar melhor os conteúdos que
-lhes são apresentados,
-seja de um curso, artigos, livros, documentação, etc.
+O Arbol é uma ferramenta para acompanhamento de tarefas onde o utilizador terá a experiência
+de realizar um estudo mais inteligente, através da criação de tarefas que retornam
+ao utilizador utilizando do mecanismo de repetição espaçada já explorado em outras
+aplicações.
 
 ## Estrutura do banco de dados
 

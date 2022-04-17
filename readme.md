@@ -15,7 +15,7 @@ aplicações.
 
   ```
 # Clone o repositório
-$ git clone https://github.com/psbrunosouza/arbolnotes_backend.git
+$ git clone https://github.com/psbrunosouza/arbol-notes-api.git
 
 # Entre na pasta do repositório
 $ cd arbol-notes-api

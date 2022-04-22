@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "ts-node src/shared/infra/http/server.ts",
+    "start": "ts-node -r tsconfig-paths/register src/shared/infra/http/server.ts",
+    "build": "tsc",
     "dev:server": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "seed:profile": "ts-node-dev -r tsconfig-paths/register src/shared/infra/typeorm/seeds/profiles.ts",

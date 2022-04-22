@@ -1,9 +1,8 @@
 node_modules/
-node_modules
 .env
 yarn.lock
 yarn-error
 docker-compose.yml
 yarn-error.log
-yarn.lock
 package-lock.json
+dist/

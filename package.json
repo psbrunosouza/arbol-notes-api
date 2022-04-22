@@ -4,10 +4,11 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "ts-node -r tsconfig-paths/register src/shared/infra/http/server.ts",
-    "dev:server": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
-    "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-    "seed:profile": "ts-node-dev -r tsconfig-paths/register src/shared/infra/typeorm/seeds/profiles.ts",
+    "build": "cross-env NODE_ENV=prod rimraf dist/* && tsc -p tsconfig.json && tscpaths -p tsconfig.json -s . -o ./dist",
+    "start": "cross-env NODE_ENV=prod node dist/src/shared/infra/http/server.js",
+    "dev:server": "cross-env NODE_ENV=dev ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
+    "typeorm": "cross-env NODE_ENV=dev ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "seed:profile": "cross-env NODE_ENV=dev ts-node-dev -r tsconfig-paths/register src/shared/infra/typeorm/seeds/profiles.ts",
     "lint": "eslint . --ext .ts",
     "lint-fix": "eslint . --ext .ts --fix"
   },
@@ -15,33 +16,35 @@
   "author": "Bruno Pinheiro",
   "license": "ISC",
   "dependencies": {
-    "@types/bcrypt": "^5.0.0",
-    "@types/cors": "^2.8.10",
-    "@types/express": "^4.17.12",
-    "@types/jsonwebtoken": "^8.5.3",
     "bcrypt": "^5.0.1",
     "celebrate": "^15.0.0",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
-    "ts-node": "^10.7.0",
-    "tsconfig-paths": "^3.14.1",
+    "rimraf": "^3.0.2",
+    "tscpaths": "^0.0.9",
     "tsyringe": "^4.6.0",
     "typeorm": "^0.2.43",
     "typescript": "^4.3.4",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/jsonwebtoken": "^8.5.8",
     "@typescript-eslint/eslint-plugin": "^4.29.1",
     "@typescript-eslint/parser": "^4.29.1",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "6.15.0",
     "eslint-plugin-prettier": "3.2.0",
     "prettier": "^2.3.2",
-    "ts-node-dev": "^1.1.6"
+    "ts-node-dev": "^1.1.6",
+    "tsconfig-paths": "^3.14.1"
   }
 }

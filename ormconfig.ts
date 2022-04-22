@@ -1,6 +1,11 @@
 import { DatabaseConfigurations } from '@config/database';
+import dotenv from 'dotenv';
 
 const databaseConfigurations = new DatabaseConfigurations();
+
+dotenv.config({
+  path: process.env.NODE_ENV === 'dev' ? '.env' : '.env.prod',
+});
 
 module.exports = {
   type: 'postgres',
@@ -9,10 +14,10 @@ module.exports = {
   username: databaseConfigurations.username,
   password: databaseConfigurations.password,
   database: databaseConfigurations.database,
-  entities: ['./src/modules/**/typeorm/entities/*.ts'],
-  migrations: ['./src/shared/infra/typeorm/migrations/*.ts'],
+  entities: [process.env.ORM_ENTITIES],
+  migrations: [process.env.ORM_MIGRATIONS],
   cli: {
-    migrationsDir: './src/shared/infra/typeorm/migrations',
+    migrationsDir: process.env.ORM_MIGRATIONS_DIR,
   },
   synchronize: true,
 };

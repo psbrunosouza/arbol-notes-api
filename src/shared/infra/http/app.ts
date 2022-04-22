@@ -6,7 +6,7 @@ import Routes from './routes';
 import cors from 'cors';
 import errorsHandler from '@shared/handlers/errorHandler';
 import { errors as validationErrorsHandler } from 'celebrate';
-import '../typeorm';
+// import '../typeorm';
 
 dotenv.config();
 

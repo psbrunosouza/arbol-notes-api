@@ -3,7 +3,7 @@ export class ApiConfigurations {
   baseUrl;
 
   constructor() {
-    this.port = process.env.API_REST_PORT ?? 3333;
+    this.port = process.env.PORT ?? 3333;
     this.baseUrl = process.env.API_BASE_URL ?? 'v1/arbol';
   }
 }

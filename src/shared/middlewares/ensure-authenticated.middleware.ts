@@ -1,7 +1,7 @@
 import AppError from '@shared/errors/AppError';
 import { Request, Response, NextFunction } from 'express';
-import { AuthConfigurations } from '@config/auth';
 import jwt from 'jsonwebtoken';
+import auth from '@config/auth';
 
 interface TokenPayload {
   userId: number;
@@ -15,7 +15,7 @@ export const ensureAuthenticatedMiddleware = (
   response: Response,
   next: NextFunction,
 ) => {
-  const authConfigurations = new AuthConfigurations();
+  const authConfigurations = auth();
 
   const { authorization } = request.headers;
 
@@ -26,7 +26,7 @@ export const ensureAuthenticatedMiddleware = (
   const token = authorization.replace('Bearer', '').trim();
 
   try {
-    const data = jwt.verify(token, String(authConfigurations.secret));
+    const data = jwt.verify(token, String(authConfigurations.SECRET));
     const { userId } = data as TokenPayload;
     request.userId = userId;
     return next();

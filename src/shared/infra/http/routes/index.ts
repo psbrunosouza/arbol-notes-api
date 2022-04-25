@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { ApiConfigurations } from '@config/api';
 import { ImagesRoutes } from '@modules/image/infra/http/routes/images.routes';
 import { ProfilesRoutes } from '@modules/profile/infra/http/routes/profiles.routes';
 import { UserRoutes } from '@modules/users/infra/http/routes/user.routes';
@@ -9,13 +8,11 @@ import { BranchRoutes } from '@modules/branch/infra/http/routes/branch.routes';
 
 const routes = Router();
 
-const apiConfigurations = new ApiConfigurations();
+routes.use(`/users`, UserRoutes);
+routes.use(`/images`, ImagesRoutes);
+routes.use(`/profiles`, ProfilesRoutes);
+routes.use(`/statuses`, StatusRoutes);
+routes.use(`/categories`, CategoryRoutes);
+routes.use(`/branches`, BranchRoutes);
 
-routes.use(`/${apiConfigurations.baseUrl}/users`, UserRoutes);
-routes.use(`/${apiConfigurations.baseUrl}/images`, ImagesRoutes);
-routes.use(`/${apiConfigurations.baseUrl}/profiles`, ProfilesRoutes);
-routes.use(`/${apiConfigurations.baseUrl}/statuses`, StatusRoutes);
-routes.use(`/${apiConfigurations.baseUrl}/categories`, CategoryRoutes);
-routes.use(`/${apiConfigurations.baseUrl}/branches`, BranchRoutes);
-
-export default routes;
+export { routes };

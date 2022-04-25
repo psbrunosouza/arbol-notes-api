@@ -1,9 +1,9 @@
-export class ApiConfigurations {
-  port;
-  baseUrl;
-
-  constructor() {
-    this.port = process.env.PORT;
-    this.baseUrl = process.env.API_BASE_URL ?? 'v1/arbol';
-  }
-}
+export default (): {
+  PORT: number;
+  BASE_URL: string;
+} => {
+  return {
+    PORT: Number(process.env.PORT) || 3333,
+    BASE_URL: process.env.API_BASE_URL || 'v1/arbol',
+  };
+};

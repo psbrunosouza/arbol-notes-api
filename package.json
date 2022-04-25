@@ -7,7 +7,8 @@
     "build": "rimraf build/* && tsc -p tsconfig.json && tscpaths -p tsconfig.json -s . -o ./build",
     "start": "node build/src/shared/infra/http/server.js",
     "dev:server": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
-    "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "dev:typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "seed:profile": "ts-node-dev -r tsconfig-paths/register src/shared/infra/typeorm/seeds/profiles.ts",
     "lint": "eslint . --ext .ts",
     "lint-fix": "eslint . --ext .ts --fix"

@@ -29,5 +29,6 @@ const databaseConfig: any = {
 
 createConnection(databaseConfig).then(() => {
   // eslint-disable-next-line no-console
+
   console.log('[DB] db connection started');
 });

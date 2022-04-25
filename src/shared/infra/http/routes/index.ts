@@ -17,8 +17,5 @@ routes.use(`/${apiConfigurations.baseUrl}/profiles`, ProfilesRoutes);
 routes.use(`/${apiConfigurations.baseUrl}/statuses`, StatusRoutes);
 routes.use(`/${apiConfigurations.baseUrl}/categories`, CategoryRoutes);
 routes.use(`/${apiConfigurations.baseUrl}/branches`, BranchRoutes);
-routes.get('/check_server', () => {
-  console.log('is running');
-});
 
 export default routes;

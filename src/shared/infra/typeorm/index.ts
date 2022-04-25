@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const path = process.env.NODE_ENV === 'production' ? '/build' : '/src';
+const path = process.env.NODE_ENV === 'production' ? '/build/src' : '/src';
 const extension = process.env.NODE_ENV === 'production' ? '.js' : '.ts';
 
 const databaseConfig: any = {

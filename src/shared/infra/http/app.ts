@@ -1,14 +1,11 @@
 import 'reflect-metadata';
 import 'express-async-errors';
-import dotenv from 'dotenv';
 import express from 'express';
 import Routes from './routes';
 import cors from 'cors';
 import errorsHandler from '@shared/handlers/errorHandler';
 import { errors as validationErrorsHandler } from 'celebrate';
-// import '../typeorm';
-
-dotenv.config();
+import '../typeorm';
 
 const app = express();
 

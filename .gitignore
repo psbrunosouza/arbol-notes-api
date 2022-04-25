@@ -6,3 +6,4 @@ docker-compose.yml
 yarn-error.log
 package-lock.json
 dist/
+build/

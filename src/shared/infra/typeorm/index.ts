@@ -1,4 +1,4 @@
-import { createConnection } from 'typeorm';
+import { createConnection, getConnectionManager } from 'typeorm';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -13,7 +13,12 @@ const databaseConfig: any = {
   username: process.env.TYPEORM_USERNAME,
   password: process.env.TYPEORM_PASSWORD,
   database: process.env.TYPEORM_DATABASE,
-  extra: process.env.TYPEORM_DRIVER_EXTRA,
+  extra: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
   entities: [`.${path}/modules/**/typeorm/entities/*${extension}`],
   migrations: [`.${path}/shared/infra/typeorm/migrations/*${extension}`],
   cli: {

@@ -37,5 +37,5 @@ export default async (name = 'default'): Promise<Connection> => {
       migrationsDir: resolve(__dirname, 'migrations/*.{ts,js}'),
     },
     synchronize: false,
-  } as any);
+  } as never);
 };

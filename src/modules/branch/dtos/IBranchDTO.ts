@@ -5,7 +5,7 @@ import { IStatusDTO } from '@modules/status/dtos/IStatusDTO';
 
 export interface IBranchDTO extends IDefaultDTO {
   name: string;
-  description?: string;
+  description: string | null;
   category: ICategoryDTO;
   user: IUserDTO;
   status: IStatusDTO;

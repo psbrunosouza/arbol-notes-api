@@ -1,4 +1,4 @@
-import { getRepository, IsNull, Repository } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
 import { injectable } from 'tsyringe';
 import { IBranchRepository } from '@modules/branch/repositories/IBranchRepository';
 import { Branch } from '@modules/branch/infra/typeorm/entities/Branch';

@@ -5,5 +5,5 @@ export interface IBranchRepository {
   listRoots(loggedUserId: string): Promise<IBranchDTO[]>;
   find(id: string): Promise<IBranchDTO | null>;
   delete(id: string): Promise<void>;
-  update(id: string, data: IBranchDTO): Promise<void>;
+  update(id: string, data: IBranchDTO): Promise<IBranchDTO>;
 }

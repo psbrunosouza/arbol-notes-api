@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="postgres@localhost">
-  <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.31">
+  <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.39">
     <root id="1"/>
     <database id="2" parent="1" name="postgres">
       <Current>1</Current>
@@ -3810,24 +3810,24 @@ sequence|table|18296|18297|1
       <RefTableKind>table</RefTableKind>
     </foreign-key>
     <index id="316" parent="281" name="PK_3602c05627856e4cd6d91585d65">
-      <ClassIds>1978</ClassIds>
       <ColNames>id</ColNames>
-      <CollationIds>0</CollationIds>
       <ObjectId>18164</ObjectId>
       <Primary>1</Primary>
       <StateNumber>937</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
+      <ClassIds>1978</ClassIds>
+      <CollationIds>0</CollationIds>
     </index>
     <index id="317" parent="281" name="UQ_4ade1b22ecef49634bd3dbe83bc">
-      <ClassIds>3126</ClassIds>
       <ColNames>email</ColNames>
-      <CollationIds>100</CollationIds>
-      <CollationNames>default</CollationNames>
       <ObjectId>18166</ObjectId>
       <StateNumber>937</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
+      <ClassIds>3126</ClassIds>
+      <CollationNames>default</CollationNames>
+      <CollationIds>100</CollationIds>
     </index>
     <key id="318" parent="281" name="PK_3602c05627856e4cd6d91585d65">
       <ColNames>id</ColNames>
@@ -3865,14 +3865,14 @@ sequence|table|18296|18297|1
       <TypeId>1043</TypeId>
     </column>
     <index id="323" parent="282" name="PK_8c82d7f526340ab734260ea46be">
-      <ClassIds>1978</ClassIds>
       <ColNames>id</ColNames>
-      <CollationIds>0</CollationIds>
       <ObjectId>18142</ObjectId>
       <Primary>1</Primary>
       <StateNumber>936</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
+      <ClassIds>1978</ClassIds>
+      <CollationIds>0</CollationIds>
     </index>
     <key id="324" parent="282" name="PK_8c82d7f526340ab734260ea46be">
       <ColNames>id</ColNames>
@@ -3950,14 +3950,14 @@ sequence|table|18296|18297|1
       <RefTableKind>table</RefTableKind>
     </foreign-key>
     <index id="334" parent="283" name="PK_020801f620e21f943ead9311c98">
-      <ClassIds>1978</ClassIds>
       <ColNames>id</ColNames>
-      <CollationIds>0</CollationIds>
       <ObjectId>18289</ObjectId>
       <Primary>1</Primary>
       <StateNumber>951</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
+      <ClassIds>1978</ClassIds>
+      <CollationIds>0</CollationIds>
     </index>
     <key id="335" parent="283" name="PK_020801f620e21f943ead9311c98">
       <ColNames>id</ColNames>
@@ -4028,14 +4028,14 @@ sequence|table|18296|18297|1
       <RefTableKind>table</RefTableKind>
     </foreign-key>
     <index id="344" parent="284" name="PK_7e33fc2ea755a5765e3564e66dd">
-      <ClassIds>1978</ClassIds>
       <ColNames>id</ColNames>
-      <CollationIds>0</CollationIds>
       <ObjectId>18181</ObjectId>
       <Primary>1</Primary>
       <StateNumber>937</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
+      <ClassIds>1978</ClassIds>
+      <CollationIds>0</CollationIds>
     </index>
     <key id="345" parent="284" name="PK_7e33fc2ea755a5765e3564e66dd">
       <ColNames>id</ColNames>
@@ -4126,14 +4126,14 @@ sequence|table|18296|18297|1
       <RefTableKind>table</RefTableKind>
     </foreign-key>
     <index id="356" parent="285" name="PK_914aa74962ee83b10614ea2095d">
-      <ClassIds>1978</ClassIds>
       <ColNames>id</ColNames>
-      <CollationIds>0</CollationIds>
       <ObjectId>18195</ObjectId>
       <Primary>1</Primary>
       <StateNumber>937</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
+      <ClassIds>1978</ClassIds>
+      <CollationIds>0</CollationIds>
     </index>
     <key id="357" parent="285" name="PK_914aa74962ee83b10614ea2095d">
       <ColNames>id</ColNames>
@@ -4210,14 +4210,14 @@ sequence|table|18296|18297|1
       <RefTableKind>table</RefTableKind>
     </foreign-key>
     <index id="366" parent="286" name="PK_cbc2c3aecbcc84004b43c2bbec6">
-      <ClassIds>1978</ClassIds>
       <ColNames>id</ColNames>
-      <CollationIds>0</CollationIds>
       <ObjectId>18302</ObjectId>
       <Primary>1</Primary>
       <StateNumber>951</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
+      <ClassIds>1978</ClassIds>
+      <CollationIds>0</CollationIds>
     </index>
     <key id="367" parent="286" name="PK_cbc2c3aecbcc84004b43c2bbec6">
       <ColNames>id</ColNames>
@@ -4282,24 +4282,24 @@ sequence|table|18296|18297|1
       <TypeId>1114</TypeId>
     </column>
     <index id="376" parent="287" name="PK_a3ffb1c0c8416b9fc6f907b7433">
-      <ClassIds>1978</ClassIds>
       <ColNames>id</ColNames>
-      <CollationIds>0</CollationIds>
       <ObjectId>18152</ObjectId>
       <Primary>1</Primary>
       <StateNumber>937</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
+      <ClassIds>1978</ClassIds>
+      <CollationIds>0</CollationIds>
     </index>
     <index id="377" parent="287" name="UQ_97672ac88f789774dd47f7c8be3">
-      <ClassIds>3126</ClassIds>
       <ColNames>email</ColNames>
-      <CollationIds>100</CollationIds>
-      <CollationNames>default</CollationNames>
       <ObjectId>18154</ObjectId>
       <StateNumber>937</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
+      <ClassIds>3126</ClassIds>
+      <CollationNames>default</CollationNames>
+      <CollationIds>100</CollationIds>
     </index>
     <key id="378" parent="287" name="PK_a3ffb1c0c8416b9fc6f907b7433">
       <ColNames>id</ColNames>

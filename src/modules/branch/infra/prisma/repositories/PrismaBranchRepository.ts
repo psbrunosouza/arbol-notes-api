@@ -1,12 +1,11 @@
 import { IBranchRepository } from '@modules/branch/repositories/IBranchRepository';
 import { IBranchDTO } from '@modules/branch/dtos/IBranchDTO';
 import { prisma } from '@shared/infra/prisma';
-import { Branch } from '@modules/branch/infra/typeorm/entities/Branch';
 
 export class PrismaBranchRepository implements IBranchRepository {
   private branch = prisma.branch;
 
-  create(data: IBranchDTO): Promise<any> {
+  create(data: IBranchDTO): Promise<IBranchDTO> {
     return this.branch.create({
       data: data,
     });
@@ -18,7 +17,7 @@ export class PrismaBranchRepository implements IBranchRepository {
     });
   }
 
-  find(id: string): Promise<any | undefined | null> {
+  find(id: string): Promise<IBranchDTO | null> {
     return this.branch.findFirst({
       where: {
         id,
@@ -26,11 +25,11 @@ export class PrismaBranchRepository implements IBranchRepository {
     });
   }
 
-  listRoots(loggedUserId: string): Promise<any> {
+  listRoots(loggedUserId: string): Promise<IBranchDTO[]> {
     return this.branch.findMany();
   }
 
-  update(id: string, data: IBranchDTO): Promise<any> {
+  update(id: string, data: IBranchDTO): Promise<IBranchDTO> {
     return this.branch.update({
       data,
       where: {

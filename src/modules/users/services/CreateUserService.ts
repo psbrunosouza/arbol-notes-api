@@ -1,13 +1,13 @@
 import { inject, injectable } from 'tsyringe';
-import { UserRepository } from '@modules/users/infra/typeorm/repositories/UserRepository';
 import { IUserDTO } from '@modules/users/dtos/IUserDTO';
 import { hash } from 'bcrypt';
+import { PrismaUserRepository } from '@modules/users/infra/prisma/repositories/PrismaUserRepository';
 
 @injectable()
 export default class CreateUserService {
   constructor(
-    @inject(UserRepository)
-    private userRepository: UserRepository,
+    @inject(PrismaUserRepository)
+    private userRepository: PrismaUserRepository,
   ) {}
 
   public async execute(user: IUserDTO): Promise<IUserDTO> {

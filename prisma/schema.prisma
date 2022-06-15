@@ -62,11 +62,11 @@ model User {
   email       String  @unique
   password    String
 
-  image   Image  @relation(fields: [imageId], references: [id])
-  imageId String
+  image   Image?  @relation(fields: [imageId], references: [id])
+  imageId String?
 
-  profile   Profile @relation(fields: [profileId], references: [id])
-  profileId String
+  profile   Profile? @relation(fields: [profileId], references: [id])
+  profileId String?
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @default(now()) @updatedAt

@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "start": "node build/src/shared/infra/http/server.js",
     "dev:server": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
     "build": "rimraf build/* && tsc && tscpaths -p tsconfig.json -s ./src -o ./build",
     "prisma": "prisma migrate dev",

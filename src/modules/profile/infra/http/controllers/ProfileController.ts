@@ -21,20 +21,20 @@ class ProfileController {
   async show(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
     const showProfileService = container.resolve(ShowProfileService);
-    return response.json(await showProfileService.execute(+id));
+    return response.json(await showProfileService.execute(id));
   }
 
   async update(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
     const data = request.body;
     const updateProfileService = container.resolve(UpdateProfileService);
-    return response.json(await updateProfileService.execute(+id, data));
+    return response.json(await updateProfileService.execute(id, data));
   }
 
   async delete(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
     const deleteProfileService = container.resolve(DeleteProfileService);
-    return response.json(await deleteProfileService.execute(+id));
+    return response.json(await deleteProfileService.execute(id));
   }
 }
 

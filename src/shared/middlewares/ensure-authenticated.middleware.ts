@@ -4,7 +4,7 @@ import { AuthConfigurations } from '@config/auth';
 import jwt from 'jsonwebtoken';
 
 interface TokenPayload {
-  userId: number;
+  userId: string;
   name: string;
   iat: number;
   exp: number;

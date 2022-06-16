@@ -1,9 +1,9 @@
-import { IImageDTO } from '@modules/image/dtos/IImageDTO';
+import { Image } from '@modules/image/infra/prisma/entities/Image';
 
 export interface IImageRepository {
-  create(data: IImageDTO): Promise<IImageDTO>;
-  list(): Promise<IImageDTO[]>;
-  find(id: number): Promise<IImageDTO | undefined>;
-  delete(id: number): Promise<void>;
-  update(id: number, data: IImageDTO): Promise<void>;
+  create(data: Image): Promise<Image>;
+  list(): Promise<Image[]>;
+  find(id: string): Promise<Image | null>;
+  delete(id: string): Promise<void>;
+  update(id: string, data: Image): Promise<Image>;
 }

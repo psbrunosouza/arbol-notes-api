@@ -1,14 +1,15 @@
 import { inject, injectable } from 'tsyringe';
-import { UserRepository } from '@modules/users/infra/typeorm/repositories/UserRepository';
+import { PrismaUserRepository } from '@modules/users/infra/prisma/repositories/PrismaUserRepository';
+import { IUserRepository } from '@modules/users/repositories/IUserRepository';
 
 @injectable()
 export default class DeleteUserService {
   constructor(
-    @inject(UserRepository)
-    private userRepository: UserRepository,
+    @inject(PrismaUserRepository)
+    private userRepository: IUserRepository,
   ) {}
 
-  public async execute(id: number): Promise<void> {
+  public async execute(id: string): Promise<void> {
     return this.userRepository.delete(id);
   }
 }

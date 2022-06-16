@@ -21,20 +21,20 @@ class StatusController {
   async show(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
     const showStatusService = container.resolve(ShowStatusService);
-    return response.json(await showStatusService.execute(+id));
+    return response.json(await showStatusService.execute(id));
   }
 
   async update(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
     const data = request.body;
     const updateStatusService = container.resolve(UpdateStatusService);
-    return response.json(await updateStatusService.execute(+id, data));
+    return response.json(await updateStatusService.execute(id, data));
   }
 
   async delete(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
     const deleteStatusService = container.resolve(DeleteStatusService);
-    return response.json(await deleteStatusService.execute(+id));
+    return response.json(await deleteStatusService.execute(id));
   }
 }
 

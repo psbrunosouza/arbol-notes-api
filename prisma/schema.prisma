@@ -1,0 +1,104 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id          String    @id
+  name        String
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now()) @updatedAt
+  deletedAt   DateTime?
+
+  Branch Branch[]
+  @@map("category")
+}
+
+model Profile {
+  id          String    @id
+  name        String
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now()) @updatedAt
+  deletedAt   DateTime?
+
+  User User[]
+  @@map("profile")
+}
+
+model Status {
+  id          String    @id
+  name        String
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now()) @updatedAt
+  deletedAt   DateTime?
+
+  Branch Branch[]
+  @@map("status")
+}
+
+model Image {
+  id          String    @id
+  link        String
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now()) @updatedAt
+  deletedAt   DateTime?
+
+  User User[]
+  @@map("image")
+}
+
+model User {
+  id          String  @id
+  name        String
+  description String?
+  email       String  @unique
+  password    String
+
+  image   Image?  @relation(fields: [imageId], references: [id])
+  imageId String?
+
+  profile   Profile? @relation(fields: [profileId], references: [id])
+  profileId String?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+  deletedAt DateTime?
+
+  Branch Branch[]
+
+  @@map("user")
+}
+
+model Branch {
+  id          String  @id
+  description String?
+  name        String
+
+  category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId String?
+
+  user   User?   @relation(fields: [userId], references: [id])
+  userId String?
+
+  status   Status? @relation(fields: [statusId], references: [id])
+  statusId String?
+
+  parent   Branch? @relation(fields: [branchId], references: [id], name: "branch")
+  branchId String?
+
+  children Branch[] @relation(name: "branch")
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+  deletedAt DateTime?
+
+  @@map("branch")
+}

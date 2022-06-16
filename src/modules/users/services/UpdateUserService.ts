@@ -1,15 +1,16 @@
 import { inject, injectable } from 'tsyringe';
-import { UserRepository } from '@modules/users/infra/typeorm/repositories/UserRepository';
 import { IUserDTO } from '@modules/users/dtos/IUserDTO';
+import { PrismaUserRepository } from '@modules/users/infra/prisma/repositories/PrismaUserRepository';
+import { IUserRepository } from '@modules/users/repositories/IUserRepository';
 
 @injectable()
 export default class UpdateUserService {
   constructor(
-    @inject(UserRepository)
-    private userRepository: UserRepository,
+    @inject(PrismaUserRepository)
+    private userRepository: IUserRepository,
   ) {}
 
-  public async execute(id: number, user: IUserDTO): Promise<void> {
+  public async execute(id: string, user: IUserDTO): Promise<IUserDTO> {
     return this.userRepository.update(id, user);
   }
 }

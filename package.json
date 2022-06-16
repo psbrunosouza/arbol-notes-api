@@ -5,6 +5,8 @@
   "main": "server.js",
   "scripts": {
     "dev:server": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
+    "build": "tsc --project tsconfig.json && tscpaths -p\n tsconfig.json -s ./src -o ./build",
+    "prisma": "prisma migrate dev",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "seed:profile": "ts-node-dev -r tsconfig-paths/register src/shared/infra/typeorm/seeds/profiles.ts",
     "lint": "eslint . --ext .ts",

@@ -1,15 +1,16 @@
 import { inject, injectable } from 'tsyringe';
-import { StatusRepository } from '@modules/status/infra/typeorm/repositories/StatusRepository';
 import { IStatusDTO } from '@modules/status/dtos/IStatusDTO';
+import { IStatusRepository } from '@modules/status/repositories/IStatusRepository';
+import { PrismaStatusRepository } from '@modules/status/infra/prisma/repositories/PrismaStatusRepository';
 
 @injectable()
 export default class ShowStatusService {
   constructor(
-    @inject(StatusRepository)
-    private statusRepository: StatusRepository,
+    @inject(PrismaStatusRepository)
+    private statusRepository: IStatusRepository,
   ) {}
 
-  public async execute(id: number): Promise<IStatusDTO | undefined> {
+  public async execute(id: string): Promise<IStatusDTO | null> {
     return this.statusRepository.find(id);
   }
 }

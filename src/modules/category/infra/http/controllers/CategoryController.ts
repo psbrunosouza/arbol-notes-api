@@ -21,20 +21,20 @@ class CategoryController {
   async show(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
     const showCategoryService = container.resolve(ShowCategoryService);
-    return response.json(await showCategoryService.execute(+id));
+    return response.json(await showCategoryService.execute(id));
   }
 
   async update(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
     const data = request.body;
     const updateCategoryService = container.resolve(UpdateCategoryService);
-    return response.json(await updateCategoryService.execute(+id, data));
+    return response.json(await updateCategoryService.execute(id, data));
   }
 
   async delete(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
     const deleteCategoryService = container.resolve(DeleteCategoryService);
-    return response.json(await deleteCategoryService.execute(+id));
+    return response.json(await deleteCategoryService.execute(id));
   }
 }
 

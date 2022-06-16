@@ -1,11 +1,11 @@
 import { inject, injectable } from 'tsyringe';
 import jwt from 'jsonwebtoken';
+import { AuthConfigurations } from '@config/auth';
 import AppError from '@shared/errors/AppError';
-import { UserRepository } from '@modules/users/infra/typeorm/repositories/UserRepository';
 import { IUserRepository } from '@modules/users/repositories/IUserRepository';
 import { IPayloadDTO } from '@shared/dtos/IPayloadDTO';
 import { compare } from 'bcrypt';
-import auth from '@config/auth';
+import { PrismaUserRepository } from '@modules/users/infra/prisma/repositories/PrismaUserRepository';
 
 interface IAuthServiceDTO {
   email: string;
@@ -19,16 +19,16 @@ interface IAuthServiceResponse {
 @injectable()
 export class AuthUserService {
   constructor(
-    @inject(UserRepository)
+    @inject(PrismaUserRepository)
     private userRepository: IUserRepository,
+    @inject(AuthConfigurations)
+    private authConfigurations: AuthConfigurations,
   ) {}
 
   async execute({
     email,
     password,
   }: IAuthServiceDTO): Promise<IAuthServiceResponse> {
-    const authConfig = auth();
-
     const user = await this.userRepository.findUserByEmail(email);
 
     if (!user)
@@ -46,10 +46,10 @@ export class AuthUserService {
     const payload: IPayloadDTO = {
       userId: user.id,
       name: user.name,
-    } as IPayloadDTO;
+    } as unknown as IPayloadDTO;
 
-    const token = jwt.sign(payload, String(authConfig.SECRET), {
-      expiresIn: authConfig.EXPIRES_IN,
+    const token = jwt.sign(payload, String(this.authConfigurations.secret), {
+      expiresIn: this.authConfigurations.expiresIn,
     });
 
     return { token };

@@ -1,14 +1,15 @@
 import { inject, injectable } from 'tsyringe';
-import { StatusRepository } from '@modules/status/infra/typeorm/repositories/StatusRepository';
+import { IStatusRepository } from '@modules/status/repositories/IStatusRepository';
+import { PrismaStatusRepository } from '@modules/status/infra/prisma/repositories/PrismaStatusRepository';
 
 @injectable()
 export default class DeleteStatusService {
   constructor(
-    @inject(StatusRepository)
-    private statusRepository: StatusRepository,
+    @inject(PrismaStatusRepository)
+    private statusRepository: IStatusRepository,
   ) {}
 
-  public async execute(id: number): Promise<void> {
+  public async execute(id: string): Promise<void> {
     return this.statusRepository.delete(id);
   }
 }

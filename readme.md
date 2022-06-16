@@ -36,7 +36,7 @@ Esse projeto foi desenvolvido com:
 - <a href="https://github.com/microsoft/tsyringe">tsrynge</a>
 - <a href="https://www.npmjs.com/package/bcrypt">bcrypt</a>
 - <a href="https://www.npmjs.com/package/celebrate">celebrate</a>
-- <a href="https://typeorm.io/">typeorm</a>
+- <a href="https://www.prisma.io/">prisma</a>
 - <a href="https://www.typescriptlang.org/">typescript</a>
 
 ## 📝 Licença

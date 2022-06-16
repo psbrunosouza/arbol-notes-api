@@ -1,8 +1,8 @@
 {
   "name": "Arbol",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "description": "",
-  "main": "server.js",
+  "main": "server.ts",
   "scripts": {
     "start": "node build/shared/infra/http/server.js",
     "dev:server": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",

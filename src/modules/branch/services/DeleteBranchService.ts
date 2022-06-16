@@ -1,5 +1,4 @@
 import { inject, injectable } from 'tsyringe';
-import { BranchRepository } from '@modules/branch/infra/typeorm/repositories/BranchRepository';
 import { PrismaBranchRepository } from '@modules/branch/infra/prisma/repositories/PrismaBranchRepository';
 import { IBranchRepository } from '@modules/branch/repositories/IBranchRepository';
 

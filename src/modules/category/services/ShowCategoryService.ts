@@ -1,5 +1,4 @@
 import { inject, injectable } from 'tsyringe';
-import { CategoryRepository } from '@modules/category/infra/typeorm/repositories/CategoryRepository';
 import { ICategoryDTO } from '@modules/category/dtos/ICategoryDTO';
 import { PrismaCategoryRepository } from '@modules/category/infra/prisma/repositories/PrismaCategoryRepository';
 import { ICategoryRepository } from '@modules/category/repositories/ICategoryRepository';

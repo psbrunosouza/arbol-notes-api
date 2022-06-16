@@ -2,7 +2,6 @@ import { inject, injectable } from 'tsyringe';
 import jwt from 'jsonwebtoken';
 import { AuthConfigurations } from '@config/auth';
 import AppError from '@shared/errors/AppError';
-import { UserRepository } from '@modules/users/infra/typeorm/repositories/UserRepository';
 import { IUserRepository } from '@modules/users/repositories/IUserRepository';
 import { IPayloadDTO } from '@shared/dtos/IPayloadDTO';
 import { compare } from 'bcrypt';

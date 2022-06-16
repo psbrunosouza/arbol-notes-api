@@ -1,7 +1,9 @@
 import { IImageRepository } from '@modules/image/repositories/IImageRepository';
 import { prisma } from '@shared/infra/prisma';
 import { Image } from '@modules/image/infra/prisma/entities/Image';
+import { injectable } from 'tsyringe';
 
+@injectable()
 export class PrismaImageRepository implements IImageRepository {
   private image = prisma.image;
 

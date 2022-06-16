@@ -17,15 +17,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthUserService = void 0;
 const tsyringe_1 = require("tsyringe");
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const auth_1 = require("../../../config/auth");
 const AppError_1 = __importDefault(require("../../../shared/errors/AppError"));
-const bcrypt_1 = require("bcrypt");
 const PrismaUserRepository_1 = require("../infra/prisma/repositories/PrismaUserRepository");
+const bcrypt_1 = require("bcrypt");
+const auth_1 = __importDefault(require("../../../config/auth"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const authConfig = (0, auth_1.default)();
 let AuthUserService = class AuthUserService {
-    constructor(userRepository, authConfigurations) {
+    constructor(userRepository) {
         this.userRepository = userRepository;
-        this.authConfigurations = authConfigurations;
     }
     async execute({ email, password, }) {
         const user = await this.userRepository.findUserByEmail(email);
@@ -37,8 +37,8 @@ let AuthUserService = class AuthUserService {
             userId: user.id,
             name: user.name,
         };
-        const token = jsonwebtoken_1.default.sign(payload, String(this.authConfigurations.secret), {
-            expiresIn: this.authConfigurations.expiresIn,
+        const token = jsonwebtoken_1.default.sign(payload, String(authConfig.SECRET), {
+            expiresIn: authConfig.EXPIRES_IN,
         });
         return { token };
     }
@@ -46,7 +46,6 @@ let AuthUserService = class AuthUserService {
 AuthUserService = __decorate([
     (0, tsyringe_1.injectable)(),
     __param(0, (0, tsyringe_1.inject)(PrismaUserRepository_1.PrismaUserRepository)),
-    __param(1, (0, tsyringe_1.inject)(auth_1.AuthConfigurations)),
-    __metadata("design:paramtypes", [Object, auth_1.AuthConfigurations])
+    __metadata("design:paramtypes", [Object])
 ], AuthUserService);
 exports.AuthUserService = AuthUserService;

@@ -1,7 +1,9 @@
 import { IBranchRepository } from '@modules/branch/repositories/IBranchRepository';
 import { Branch } from '@modules/branch/infra/prisma/entities/Branch';
 import { prisma } from '@shared/infra/prisma';
+import { injectable } from 'tsyringe';
 
+@injectable()
 export class PrismaBranchRepository implements IBranchRepository {
   private branch = prisma.branch;
 

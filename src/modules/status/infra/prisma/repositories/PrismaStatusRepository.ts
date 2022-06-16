@@ -1,7 +1,9 @@
 import { prisma } from '@shared/infra/prisma';
 import { IStatusRepository } from '@modules/status/repositories/IStatusRepository';
 import { Status } from '@modules/status/infra/prisma/entities/Status';
+import { injectable } from 'tsyringe';
 
+@injectable()
 export class PrismaStatusRepository implements IStatusRepository {
   private status = prisma.status;
 

@@ -9,7 +9,6 @@ class PrismaBranchRepository {
     }
     create(data) {
         const BranchWithData = Object.assign(new Branch_1.Branch(), data);
-        console.log(BranchWithData);
         return this.branch.create({
             data: BranchWithData,
         });

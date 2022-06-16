@@ -1,7 +1,9 @@
 import { prisma } from '@shared/infra/prisma';
 import { IProfileRepository } from '@modules/profile/repositories/IProfileRepository';
 import { Profile } from '@modules/profile/infra/prisma/entities/Profile';
+import { injectable } from 'tsyringe';
 
+@injectable()
 export class PrismaProfileRepository implements IProfileRepository {
   private profile = prisma.profile;
 

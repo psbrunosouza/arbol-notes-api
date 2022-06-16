@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.routes = void 0;
 const express_1 = require("express");
-const api_1 = require("../../../../config/api");
 const images_routes_1 = require("../../../../modules/image/infra/http/routes/images.routes");
 const profiles_routes_1 = require("../../../../modules/profile/infra/http/routes/profiles.routes");
 const user_routes_1 = require("../../../../modules/users/infra/http/routes/user.routes");
@@ -9,11 +9,10 @@ const status_routes_1 = require("../../../../modules/status/infra/http/routes/st
 const category_routes_1 = require("../../../../modules/category/infra/http/routes/category.routes");
 const branch_routes_1 = require("../../../../modules/branch/infra/http/routes/branch.routes");
 const routes = (0, express_1.Router)();
-const apiConfigurations = new api_1.ApiConfigurations();
-routes.use(`/${apiConfigurations.baseUrl}/users`, user_routes_1.UserRoutes);
-routes.use(`/${apiConfigurations.baseUrl}/images`, images_routes_1.ImagesRoutes);
-routes.use(`/${apiConfigurations.baseUrl}/profiles`, profiles_routes_1.ProfilesRoutes);
-routes.use(`/${apiConfigurations.baseUrl}/statuses`, status_routes_1.StatusRoutes);
-routes.use(`/${apiConfigurations.baseUrl}/categories`, category_routes_1.CategoryRoutes);
-routes.use(`/${apiConfigurations.baseUrl}/branches`, branch_routes_1.BranchRoutes);
-exports.default = routes;
+exports.routes = routes;
+routes.use(`/users`, user_routes_1.UserRoutes);
+routes.use(`/images`, images_routes_1.ImagesRoutes);
+routes.use(`/profiles`, profiles_routes_1.ProfilesRoutes);
+routes.use(`/statuses`, status_routes_1.StatusRoutes);
+routes.use(`/categories`, category_routes_1.CategoryRoutes);
+routes.use(`/branches`, branch_routes_1.BranchRoutes);

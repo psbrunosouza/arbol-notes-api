@@ -1,7 +1,9 @@
 import { ICategoryRepository } from '@modules/category/repositories/ICategoryRepository';
 import { prisma } from '@shared/infra/prisma';
 import { Category } from '@modules/category/infra/prisma/entities/Category';
+import { injectable } from 'tsyringe';
 
+@injectable()
 export class PrismaCategoryRepository implements ICategoryRepository {
   private category = prisma.category;
 

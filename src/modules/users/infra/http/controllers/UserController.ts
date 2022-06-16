@@ -30,20 +30,20 @@ class UserController {
   async show(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
     const showUserService = container.resolve(ShowUserService);
-    return response.json(await showUserService.execute(+id));
+    return response.json(await showUserService.execute(id));
   }
 
   async update(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
     const data = request.body;
     const updateProfileService = container.resolve(UpdateUserService);
-    return response.json(await updateProfileService.execute(+id, data));
+    return response.json(await updateProfileService.execute(id, data));
   }
 
   async delete(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
     const deleteUserService = container.resolve(DeleteUserService);
-    return response.json(await deleteUserService.execute(+id));
+    return response.json(await deleteUserService.execute(id));
   }
 }
 

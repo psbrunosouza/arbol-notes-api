@@ -6,7 +6,7 @@ import Routes from './routes';
 import cors from 'cors';
 import errorsHandler from '@shared/handlers/errorHandler';
 import { errors as validationErrorsHandler } from 'celebrate';
-import '../typeorm';
+import { PrismaBranchRepository } from '@modules/branch/infra/prisma/repositories/PrismaBranchRepository';
 
 dotenv.config();
 
@@ -21,5 +21,7 @@ app.use(Routes);
 app.use(validationErrorsHandler());
 
 app.use(errorsHandler);
+
+new PrismaBranchRepository();
 
 export default app;

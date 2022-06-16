@@ -1,9 +1,9 @@
-import { IStatusDTO } from '@modules/status/dtos/IStatusDTO';
+import { Status } from '@modules/status/infra/prisma/entities/Status';
 
 export interface IStatusRepository {
-  create(data: IStatusDTO): Promise<IStatusDTO>;
-  list(): Promise<IStatusDTO[]>;
-  find(id: number): Promise<IStatusDTO | undefined>;
-  delete(id: number): Promise<void>;
-  update(id: number, data: IStatusDTO): Promise<void>;
+  create(data: Status): Promise<Status>;
+  list(): Promise<Status[]>;
+  find(id: string): Promise<Status | null>;
+  delete(id: string): Promise<void>;
+  update(id: string, data: Status): Promise<Status>;
 }

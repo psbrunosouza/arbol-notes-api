@@ -4,9 +4,9 @@ import { IProfileDTO } from '@modules/profile/dtos/IProfileDTO';
 
 export interface IUserDTO extends IDefaultDTO {
   name: string;
-  description: string;
+  description: string | null;
   email: string;
   password: string;
-  image: IImageDTO;
-  profile: IProfileDTO;
+  imageId: IImageDTO['id'] | null;
+  profileId: IProfileDTO['id'] | null;
 }

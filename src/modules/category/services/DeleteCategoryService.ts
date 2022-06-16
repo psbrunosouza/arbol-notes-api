@@ -1,14 +1,15 @@
 import { inject, injectable } from 'tsyringe';
-import { CategoryRepository } from '@modules/category/infra/typeorm/repositories/CategoryRepository';
+import { PrismaCategoryRepository } from '@modules/category/infra/prisma/repositories/PrismaCategoryRepository';
+import { ICategoryRepository } from '@modules/category/repositories/ICategoryRepository';
 
 @injectable()
 export default class DeleteCategoryService {
   constructor(
-    @inject(CategoryRepository)
-    private categoryRepository: CategoryRepository,
+    @inject(PrismaCategoryRepository)
+    private categoryRepository: ICategoryRepository,
   ) {}
 
-  public async execute(id: number): Promise<void> {
+  public async execute(id: string): Promise<void> {
     return this.categoryRepository.delete(id);
   }
 }

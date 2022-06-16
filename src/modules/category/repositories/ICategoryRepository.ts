@@ -1,9 +1,9 @@
-import { ICategoryDTO } from '@modules/category/dtos/ICategoryDTO';
+import { Category } from '@modules/category/infra/prisma/entities/Category';
 
 export interface ICategoryRepository {
-  create(data: ICategoryDTO): Promise<ICategoryDTO>;
-  list(): Promise<ICategoryDTO[]>;
-  find(id: string): Promise<ICategoryDTO | undefined | null>;
+  create(data: Category): Promise<Category>;
+  list(): Promise<Category[]>;
+  find(id: string): Promise<Category | null>;
   delete(id: string): Promise<void>;
-  update(id: string, data: ICategoryDTO): Promise<void>;
+  update(id: string, data: Category): Promise<Category>;
 }

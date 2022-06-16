@@ -34,20 +34,20 @@ class BranchController {
   async show(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
     const showBranchService = container.resolve(ShowBranchService);
-    return response.json(await showBranchService.execute(+id));
+    return response.json(await showBranchService.execute(id));
   }
 
   async update(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
     const data = request.body;
     const updateBranchService = container.resolve(UpdateBranchService);
-    return response.json(await updateBranchService.execute(+id, data));
+    return response.json(await updateBranchService.execute(id, data));
   }
 
   async delete(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
     const deleteBranchService = container.resolve(DeleteBranchService);
-    return response.json(await deleteBranchService.execute(+id));
+    return response.json(await deleteBranchService.execute(id));
   }
 }
 

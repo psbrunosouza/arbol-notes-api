@@ -1,12 +1,10 @@
-import { ICategoryDTO } from '@modules/category/dtos/ICategoryDTO';
-import { IUserDTO } from '@modules/users/dtos/IUserDTO';
-import { IStatusDTO } from '@modules/status/dtos/IStatusDTO';
-import { Branch } from '@prisma/client';
+import { IDefaultDTO } from '@shared/dtos/IDefaultDTO';
 
-export interface IBranchDTO extends Branch {
+export interface IBranchDTO extends IDefaultDTO {
   name: string;
   description: string | null;
   categoryId: string;
   userId: string;
   statusId: string;
+  branchId: string;
 }

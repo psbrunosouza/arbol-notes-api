@@ -1,14 +1,15 @@
 import { IImageRepository } from '@modules/image/repositories/IImageRepository';
-import { IImageDTO } from '@modules/image/dtos/IImageDTO';
 import { prisma } from '@shared/infra/prisma';
 import { Image } from '@modules/image/infra/prisma/entities/Image';
 
 export class PrismaImageRepository implements IImageRepository {
   private image = prisma.image;
 
-  create(data: Image): Promise<IImageDTO> {
+  create(data: Image): Promise<Image> {
+    const imageWithData = Object.assign(new Image(), data);
+
     return this.image.create({
-      data,
+      data: imageWithData,
     });
   }
 
@@ -18,7 +19,7 @@ export class PrismaImageRepository implements IImageRepository {
     });
   }
 
-  find(id: string): Promise<IImageDTO | null> {
+  find(id: string): Promise<Image | null> {
     return this.image.findFirst({
       where: {
         id,
@@ -26,16 +27,18 @@ export class PrismaImageRepository implements IImageRepository {
     });
   }
 
-  list(): Promise<IImageDTO[]> {
+  list(): Promise<Image[]> {
     return this.image.findMany();
   }
 
-  async update(id: string, data: IImageDTO): Promise<void> {
-    await this.image.update({
+  update(id: string, data: Image): Promise<Image> {
+    const imageWithData = Object.assign(new Image(), data);
+
+    return this.image.update({
       where: {
         id,
       },
-      data,
+      data: imageWithData,
     });
   }
 }

@@ -1,13 +1,15 @@
 import { prisma } from '@shared/infra/prisma';
 import { IProfileRepository } from '@modules/profile/repositories/IProfileRepository';
-import { IProfileDTO } from '@modules/profile/dtos/IProfileDTO';
+import { Profile } from '@modules/profile/infra/prisma/entities/Profile';
 
 export class PrismaProfileRepository implements IProfileRepository {
   private profile = prisma.profile;
 
-  create(data: IProfileDTO): Promise<IProfileDTO> {
+  create(data: Profile): Promise<Profile> {
+    const profileWithData = Object.assign(new Profile(), data);
+
     return this.profile.create({
-      data,
+      data: profileWithData,
     });
   }
 
@@ -19,7 +21,7 @@ export class PrismaProfileRepository implements IProfileRepository {
     });
   }
 
-  find(id: string): Promise<IProfileDTO | null> {
+  find(id: string): Promise<Profile | null> {
     return this.profile.findFirst({
       where: {
         id,
@@ -27,13 +29,15 @@ export class PrismaProfileRepository implements IProfileRepository {
     });
   }
 
-  list(): Promise<IProfileDTO[]> {
+  list(): Promise<Profile[]> {
     return this.profile.findMany();
   }
 
-  async update(id: string, data: IProfileDTO): Promise<void> {
-    await this.profile.update({
-      data,
+  update(id: string, data: Profile): Promise<Profile> {
+    const profileWithData = Object.assign(new Profile(), data);
+
+    return this.profile.update({
+      data: profileWithData,
       where: {
         id,
       },

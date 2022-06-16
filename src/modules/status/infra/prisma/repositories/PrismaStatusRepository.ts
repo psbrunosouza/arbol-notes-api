@@ -1,13 +1,15 @@
-import { IStatusRepository } from '@modules/status/repositories/IStatusRepository';
-import { IStatusDTO } from '@modules/status/dtos/IStatusDTO';
 import { prisma } from '@shared/infra/prisma';
+import { IStatusRepository } from '@modules/status/repositories/IStatusRepository';
+import { Status } from '@modules/status/infra/prisma/entities/Status';
 
 export class PrismaStatusRepository implements IStatusRepository {
   private status = prisma.status;
 
-  create(data: IStatusDTO): Promise<IStatusDTO | null> {
+  create(data: Status): Promise<Status> {
+    const statusWithData = Object.assign(new Status(), data);
+
     return this.status.create({
-      data,
+      data: statusWithData,
     });
   }
 
@@ -17,19 +19,21 @@ export class PrismaStatusRepository implements IStatusRepository {
     });
   }
 
-  find(id: string): Promise<IStatusDTO | null> {
+  find(id: string): Promise<Status | null> {
     return this.status.findFirst({
       where: { id },
     });
   }
 
-  list(): Promise<IStatusDTO[]> {
+  list(): Promise<Status[]> {
     return this.status.findMany();
   }
 
-  async update(id: string, data: IStatusDTO): Promise<void> {
-    await this.status.update({
-      data,
+  async update(id: string, data: Status): Promise<Status> {
+    const statusWithData = Object.assign(new Status(), data);
+
+    return this.status.update({
+      data: statusWithData,
       where: { id },
     });
   }

@@ -1,9 +1,9 @@
-import { IProfileDTO } from '@modules/profile/dtos/IProfileDTO';
+import { Profile } from '@modules/profile/infra/prisma/entities/Profile';
 
 export interface IProfileRepository {
-  create(data: IProfileDTO): Promise<IProfileDTO>;
-  list(): Promise<IProfileDTO[]>;
-  find(id: string): Promise<IProfileDTO | null>;
+  create(data: Profile): Promise<Profile>;
+  list(): Promise<Profile[]>;
+  find(id: string): Promise<Profile | null>;
   delete(id: string): Promise<void>;
-  update(id: string, data: IProfileDTO): Promise<void>;
+  update(id: string, data: Profile): Promise<Profile>;
 }

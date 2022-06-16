@@ -1,13 +1,15 @@
 import { IBranchRepository } from '@modules/branch/repositories/IBranchRepository';
-import { IBranchDTO } from '@modules/branch/dtos/IBranchDTO';
+import { Branch } from '@modules/branch/infra/prisma/entities/Branch';
 import { prisma } from '@shared/infra/prisma';
 
 export class PrismaBranchRepository implements IBranchRepository {
   private branch = prisma.branch;
 
-  create(data: IBranchDTO): Promise<IBranchDTO> {
+  create(data: Branch): Promise<Branch> {
+    const BranchWithData = Object.assign(new Branch(), data);
+
     return this.branch.create({
-      data: data,
+      data: BranchWithData,
     });
   }
 
@@ -17,7 +19,7 @@ export class PrismaBranchRepository implements IBranchRepository {
     });
   }
 
-  find(id: string): Promise<IBranchDTO | null> {
+  find(id: string): Promise<Branch | null> {
     return this.branch.findFirst({
       where: {
         id,
@@ -25,13 +27,19 @@ export class PrismaBranchRepository implements IBranchRepository {
     });
   }
 
-  listRoots(loggedUserId: string): Promise<IBranchDTO[]> {
-    return this.branch.findMany();
+  listRoots(loggedUserId: string): Promise<Branch[]> {
+    return this.branch.findMany({
+      where: {
+        id: loggedUserId,
+      },
+    });
   }
 
-  update(id: string, data: IBranchDTO): Promise<IBranchDTO> {
+  update(id: string, data: Branch): Promise<Branch> {
+    const BranchWithData = Object.assign(new Branch(), data);
+
     return this.branch.update({
-      data,
+      data: BranchWithData,
       where: {
         id,
       },

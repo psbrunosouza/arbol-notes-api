@@ -1,18 +1,18 @@
 import { injectable } from 'tsyringe';
-import { prisma } from '@shared/infra/prisma';
 import { IUserRepository } from '@modules/users/repositories/IUserRepository';
 import { IUserDTO } from '@modules/users/dtos/IUserDTO';
-import { v4 as uuidv4 } from 'uuid';
+import { User } from '@modules/users/infra/prisma/entities/User';
+import { prisma } from '@shared/infra/prisma';
+
 @injectable()
 export class PrismaUserRepository implements IUserRepository {
   private user = prisma.user;
 
-  async create(data: IUserDTO): Promise<IUserDTO> {
+  async create(data: User): Promise<User> {
+    const userWithData = Object.assign(new User(), data);
+
     return this.user.create({
-      data: {
-        ...data,
-        id: uuidv4(),
-      },
+      data: userWithData,
     });
   }
 
@@ -49,11 +49,13 @@ export class PrismaUserRepository implements IUserRepository {
   }
 
   update(id: string, data: IUserDTO): Promise<IUserDTO> {
+    const userWithData = Object.assign(new User(), data);
+
     return this.user.update({
       where: {
         id,
       },
-      data,
+      data: userWithData,
     });
   }
 }

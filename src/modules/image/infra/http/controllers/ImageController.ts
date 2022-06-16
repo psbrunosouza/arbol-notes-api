@@ -21,20 +21,20 @@ class ImageController {
   async show(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
     const showImageService = container.resolve(ShowImageService);
-    return response.json(await showImageService.execute(+id));
+    return response.json(await showImageService.execute(id));
   }
 
   async update(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
     const data = request.body;
     const updateImageService = container.resolve(UpdateImageService);
-    return response.json(await updateImageService.execute(+id, data));
+    return response.json(await updateImageService.execute(id, data));
   }
 
   async delete(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
     const deleteImageService = container.resolve(DeleteImageService);
-    return response.json(await deleteImageService.execute(+id));
+    return response.json(await deleteImageService.execute(id));
   }
 }
 

@@ -7,6 +7,6 @@ export interface IUserDTO extends IDefaultDTO {
   description: string | null;
   email: string;
   password: string;
-  imageId: IImageDTO['id'];
-  profileId: IProfileDTO['id'];
+  imageId: IImageDTO['id'] | null;
+  profileId: IProfileDTO['id'] | null;
 }

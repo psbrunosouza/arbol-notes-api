@@ -1,8 +1,8 @@
 import { Default } from '@shared/infra/prisma/entities/Default';
-import { ICategoryDTO } from '@modules/category/dtos/ICategoryDTO';
+import { IStatusDTO } from '@modules/status/dtos/IStatusDTO';
 import { v4 as uuidv4 } from 'uuid';
 
-export class Category extends Default implements ICategoryDTO {
+export class Status extends Default implements IStatusDTO {
   description: string | null;
   name: string;
 

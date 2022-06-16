@@ -37,7 +37,7 @@ export class PrismaProfileRepository implements IProfileRepository {
     const profileWithData = Object.assign(new Profile(), data);
 
     return this.profile.update({
-      data: profileWithData,
+      data: { ...profileWithData, id },
       where: {
         id,
       },

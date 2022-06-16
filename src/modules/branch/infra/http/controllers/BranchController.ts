@@ -27,7 +27,7 @@ class BranchController {
     const id = request.userId;
     const createBranchService = container.resolve(CreateBranchService);
     return response.json(
-      await createBranchService.execute({ ...data, user: { id: id } }),
+      await createBranchService.execute({ ...data, userId: id }),
     );
   }
 

@@ -55,7 +55,7 @@ export class PrismaUserRepository implements IUserRepository {
       where: {
         id,
       },
-      data: userWithData,
+      data: { ...userWithData, id },
     });
   }
 }

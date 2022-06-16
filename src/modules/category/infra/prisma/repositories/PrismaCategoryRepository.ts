@@ -34,7 +34,7 @@ export class PrismaCategoryRepository implements ICategoryRepository {
 
     return this.category.update({
       where: { id },
-      data: categoryWithData,
+      data: { ...categoryWithData, id },
     });
   }
 }

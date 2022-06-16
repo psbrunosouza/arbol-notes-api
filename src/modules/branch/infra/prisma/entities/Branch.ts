@@ -3,15 +3,15 @@ import { IBranchDTO } from '@modules/branch/dtos/IBranchDTO';
 import { v4 as uuidv4 } from 'uuid';
 
 export class Branch extends Default implements IBranchDTO {
-  description: string | null;
   name: string;
-  categoryId: string;
-  statusId: string;
-  userId: string;
-  branchId: string;
+  description: string | null;
+  categoryId: string | null;
+  statusId: string | null;
+  userId: string | null;
+  branchId: string | null;
 
   constructor() {
     super();
-    this.userId = uuidv4();
+    this.id = uuidv4();
   }
 }

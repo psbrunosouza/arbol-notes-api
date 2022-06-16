@@ -38,7 +38,7 @@ export class PrismaImageRepository implements IImageRepository {
       where: {
         id,
       },
-      data: imageWithData,
+      data: { ...imageWithData, id },
     });
   }
 }

@@ -8,6 +8,8 @@ export class PrismaBranchRepository implements IBranchRepository {
   create(data: Branch): Promise<Branch> {
     const BranchWithData = Object.assign(new Branch(), data);
 
+    console.log(BranchWithData);
+
     return this.branch.create({
       data: BranchWithData,
     });
@@ -39,7 +41,7 @@ export class PrismaBranchRepository implements IBranchRepository {
     const BranchWithData = Object.assign(new Branch(), data);
 
     return this.branch.update({
-      data: BranchWithData,
+      data: { ...BranchWithData, id },
       where: {
         id,
       },

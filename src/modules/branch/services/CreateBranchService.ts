@@ -10,7 +10,7 @@ export default class CreateBranchService {
     private prismaBranchRepository: IBranchRepository,
   ) {}
 
-  public async execute(branch: IBranchDTO) {
+  execute(branch: IBranchDTO): Promise<IBranchDTO> {
     return this.prismaBranchRepository.create(branch);
   }
 }

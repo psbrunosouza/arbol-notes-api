@@ -33,7 +33,7 @@ export class PrismaStatusRepository implements IStatusRepository {
     const statusWithData = Object.assign(new Status(), data);
 
     return this.status.update({
-      data: statusWithData,
+      data: { ...statusWithData, id },
       where: { id },
     });
   }

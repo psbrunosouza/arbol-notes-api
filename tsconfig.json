@@ -4,9 +4,8 @@
     "module": "commonjs" ,
     "strict": true ,
     "strictPropertyInitialization": false ,
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "outDir": "./build",
-    "rootDir": ".",
     "paths": {
       "@config/*": ["./src/config/*"],
       "@modules/*": ["./src/modules/*"],
@@ -16,6 +15,7 @@
     "experimentalDecorators": true ,
     "emitDecoratorMetadata": true ,
     "skipLibCheck": true ,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true
   }
 }

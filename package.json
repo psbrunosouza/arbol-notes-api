@@ -3,11 +3,16 @@
   "version": "0.7.0",
   "description": "",
   "main": "server.ts",
+  "prisma": {
+    "seed": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules prisma/seed.ts"
+  },
   "scripts": {
     "start": "node build/shared/infra/http/server.js",
-    "dev:server": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
     "build": "rimraf build/* && tsc && tscpaths -p tsconfig.json -s ./src -o ./build",
-    "prisma": "prisma migrate deploy",
+    "dev:server": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
+    "prisma:dev": "prisma migrate dev",
+    "prisma:deploy": "prisma migrate deploy",
+    "prisma:studio": "prisma studio",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "seed:profile": "ts-node-dev -r tsconfig-paths/register src/shared/infra/typeorm/seeds/profiles.ts",
     "lint": "eslint . --ext .ts",

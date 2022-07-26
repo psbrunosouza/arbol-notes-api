@@ -26,13 +26,20 @@ export class PrismaBranchRepository implements IBranchRepository {
       where: {
         id,
       },
+      include: {
+        children: true,
+      },
     });
   }
 
-  listRoots(loggedUserId: string): Promise<Branch[]> {
+  async listRoots(loggedUserId: string): Promise<Branch[]> {
     return this.branch.findMany({
       where: {
-        id: loggedUserId,
+        userId: loggedUserId,
+        branchId: null,
+      },
+      include: {
+        children: true,
       },
     });
   }
